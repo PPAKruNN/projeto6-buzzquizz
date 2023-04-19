@@ -13,9 +13,49 @@
     /*----------------*/
     .selected_quizz {
         height: 142px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
     .text_selected_quizz {
         font-size: 19px;
         line-height: 22px;
+        margin: 0 20px;
+    }
+    .question_box{
+        width: 100%;
+        margin: 24px 0 auto;
+    }
+    .content-question_box{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3%;
+    }
+    .question{
+        width: 100%;
+        font-size: 19px;
+        line-height: 22px;
+    }
+    .text_question{
+        font-size: 19px;
+        line-height: 22px;
+    }
+    .images_box{
+        
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .select{
+        width: 45%;
+    }
+    .select img{
+        width: 100%;
     }
 }
