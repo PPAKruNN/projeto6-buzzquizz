@@ -225,10 +225,123 @@ body {
     color: #000000;
 }
 
-img {
-    width: 100%;
+.select img {
     height: 175px;
+    width: 163px;
 }
+/*---------------------------------------*/
+.titulo-page-3{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: black;
+    margin-top: 70px;
+}
+.container-inputs{
+    width: 600px;
+    padding: 0px 12px 15px 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: start;
+    margin-top: 27px;
+}
+.container-inputs p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    margin-top: 27px;
+}
+.inputs-page-3{
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    width: 564px;
+    height: 46px;
+    padding-left: 20px;
+    margin: 15px 0 0 0;
+}
+.inputs-page-3::placeholder{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+    color: #BABABA;
+}
+.botão-page-3{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    text-align: center;
+    color: #FFF5F4;
+    background-color: #EC362D;
+    border-radius: 15px;
+    border: none;
+    padding: 18px;
+    margin-top: 85px;
+    margin-bottom: 30px;
+}
+.botão-voltar-page-3{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    text-align: center;
+    color: #818181;
+    border: none;
+    margin-bottom: 45px;
+    background-color: transparent;
+}
+.container-edits{
+    width: 600px;
+    padding: 25px 15px 25px 15px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 27px;
+}
+.icone-edit{
+    width: 26px;
+    height: 23px;
+}
+.container-edits p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+}
+.quizz-finalizado{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png);
+    width: 500px;
+    height: 266px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-top: 46px;
+}
+.quizz-finalizado p{
+    margin: 20px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;
+}
+
 /*---------------------------------------*/
 .hide {
     display: none;

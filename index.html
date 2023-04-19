@@ -20,7 +20,7 @@
     <div class="top_bar">BuzzQuizz</div>
 
     <!--layout TELA 1 (fica SEM a classe hide por padrão)-->
-    <div id="page_1" class="full_page hide">
+    <div id="page_1" class="full_page">
 
         <!--fica SEM a classe hide por padrão-->
         <div class="create_quizz">
@@ -64,7 +64,7 @@
     </div>
 
     <!--layout TELA 2 (fica COM a classe hide por padrão)-->
-    <div id="page_2" class="full_page">
+    <div id="page_2" class="full_page hide">
 
         <div class ="selected_quizz">
             <p class="text_selected_quizz">Linux > Ruindows (teste quebra de linha.............................................................................................................)</p>
@@ -121,7 +121,75 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <!--layout TELA 3.1 (fica COM a classe hide por padrão)-->
+    <div id="page_3" class="full_page hide">
+        <p class="titulo-page-3">Comece pelo começo</p>
+        <div class="container-inputs">
+            <input class="inputs-page-3" type="text" placeholder="Título do seu quizz">
+            <input class="inputs-page-3" type="text" placeholder="URL da imagem do seu quizz">
+            <input class="inputs-page-3" type="text" placeholder="Quantidade de perguntas do quizz">
+            <input class="inputs-page-3" type="text" placeholder="Quantidade de níveis do quizz">
+        </div>
+        <button class="botão-page-3">Prosseguir pra criar perguntas</button>
+    </div>
+    <!--layout TELA 3.2 (fica COM a classe hide por padrão)-->
+    <div id="page_3" class="full_page hide">
+        <p class="titulo-page-3">Crie suas perguntas</p>
+        <div class="container-inputs">
+            <p>Pergunta 1</p>
+            <input class="inputs-page-3" type="text" placeholder="Texto da pergunta">
+            <input class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
+            <p>Resposta correta</p>
+            <input class="inputs-page-3" type="text" placeholder="Resposta correta">
+            <input class="inputs-page-3" type="text" placeholder="URL da imagem">
+            <p>Respostas incorretas</p>
+            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
+            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 1">
+            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
+            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 2">
+            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
+            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 3">
+        </div>
+        <div class="container-edits">
+            <p>Pergunta 2</p>
+            <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+        </div>
+        <div class="container-edits">
+            <p>Pergunta 3</p>
+            <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+        </div>
+        <button class="botão-page-3">Prosseguir pra criar níveis</button>
+    </div>
+    <!--layout TELA 3.3 (fica COM a classe hide por padrão)-->
+    <div id="page_3" class="full_page hide">
+        <p class="titulo-page-3">Agora, decida os níveis</p>
+        <div class="container-inputs">
+            <p>Nível 1</p>
+            <input class="inputs-page-3" type="text" placeholder="Título do nível">
+            <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
+            <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
+            <input class="inputs-page-3" type="text" placeholder="Descrição do nível">
+        </div>
+        <div class="container-edits">
+            <p>Nível 2</p>
+            <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+        </div>
+        <div class="container-edits">
+            <p>Nível 3</p>
+            <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+        </div>
+        <button class="botão-page-3">Finalizar Quizz</button>
+    </div>
+    <!--layout TELA 3.3 (fica COM a classe hide por padrão)-->
+    <div id="page_3" class="full_page hide">
+        <p class="titulo-page-3">Seu quiz está pronto!</p>
+        <div class="quizz-finalizado">
+            <p>Teste</p>
+        </div>
+        <button class="botão-page-3">Acessar Quizz</button>
+        <button class="botão-voltar-page-3">Voltar para home</button>
+    </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
