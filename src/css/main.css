@@ -325,6 +325,8 @@ body {
 }
 .quizz-finalizado{
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png);
+    background-position: center center;
+    background-size: cover;
     width: 500px;
     height: 266px;
     border-radius: 5px;
