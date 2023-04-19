@@ -19,13 +19,15 @@
 
     <div class="top_bar">BuzzQuizz</div>
 
-    <div class="full_page">
-        <!--fica sem a classe hide por padrão-->
+    <!--layout TELA 1 (fica SEM a classe hide por padrão)-->
+    <div id="page_1" class="full_page hide">
+
+        <!--fica SEM a classe hide por padrão-->
         <div class="create_quizz">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
             <button class="button_create_quizz">Criar Quizz</button>
         </div>
-        <!--fica com a classe hide por padrão-->
+        <!--fica COM a classe hide por padrão-->
         <div class="your quizz_container hide">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
@@ -40,7 +42,7 @@
                 </div>
             </div>
         </div>
-
+        <!---->
         <div class="quizz_container">
             <p class="text_all_quizzes">Todos os Quizzes</p>
             <div class="quizzes">
@@ -58,8 +60,15 @@
                 </div>
             </div>
         </div>
+
     </div>
 
+    <!--layout TELA 2 (fica COM a classe hide por padrão)-->
+    <div id="page_2" class="full_page quizz_page">
+
+    </div>
+
+    <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
