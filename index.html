@@ -22,24 +22,24 @@
     <!--layout TELA 1 (fica SEM a classe hide por padrão)-->
     <div id="page_1" class="full_page">
 
-        <!--fica SEM a classe hide por padrão-->
+        <!--layout caso: nenhum quizz local(fica SEM a classe hide por padrão)-->
         <div class="create_quizz">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
             <button onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
         </div>
-        <!--fica COM a classe hide por padrão-->
-        <div class="quizz_container hide">
+        <!--layout caso: quizz locais criados(fica COM a classe hide por padrão)-->
+        <div class="container_column hide">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
                 <ion-icon onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
             </div>
-            <div class="your quizzes">
-                <div class="container-quizz" onclick="play_quizz()">
+            <div class="quizzes">
+                <div class="container-quizz pointer" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
                 </div>
-                <div class="container-quizz" onclick="play_quizz()">
+                <div class="container-quizz pointer" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
@@ -47,32 +47,12 @@
             </div>
         </div>
         <!---->
-        <div class="quizz_container">
+        <div class="container_column">
             <p class="text_all_quizzes">Todos os Quizzes</p>
             <div class="all quizzes">
-                <div class="container-quizz" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://upload.wikimedia.org/wikipedia/commons/d/d0/OpenSUSE_Logo.svg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
-                <div class="container-quizz" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
-                <div class="container-quizz" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
-                <div class="container-quizz" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
+                <!--SERÁ RENDERIZADO PELO JS-->
             </div>
         </div>
-
     </div>
 
     <!--layout TELA 2 (fica COM a classe hide por padrão)-->
