@@ -28,33 +28,47 @@
             <button onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
         </div>
         <!--fica COM a classe hide por padrão-->
-        <div class="your quizz_container hide">
+        <div class="quizz_container hide">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
                 <ion-icon onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
             </div>
-            <div class="quizzes">
-                <div class="quizz pointer" onclick="play_quizz()"
-                    style="
-                        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png); 
-                        background-position: center center; 
-                        background-size: cover;
-                    ">
-                    <p class="text_quizz">Linux > Ruindows</p>
+            <div class="your quizzes">
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
+                    <p class="text_quizz">Linux </p>  
+                </div>
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
+                    <p class="text_quizz">Linux </p>  
                 </div>
             </div>
         </div>
         <!---->
         <div class="quizz_container">
             <p class="text_all_quizzes">Todos os Quizzes</p>
-            <div class="quizzes">
-                <div class="quizz pointer" onclick="play_quizz()"
-                    style="
-                        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png); 
-                        background-position: center center; 
-                        background-size: cover;
-                    ">
-                    <p class="text_quizz">Linux > Ruindows</p>
+            <div class="all quizzes">
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://upload.wikimedia.org/wikipedia/commons/d/d0/OpenSUSE_Logo.svg"/>
+                    <p class="text_quizz">Linux </p>  
+                </div>
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
+                    <p class="text_quizz">Linux </p>  
+                </div>
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
+                    <p class="text_quizz">Linux </p>  
+                </div>
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
+                    <p class="text_quizz">Linux </p>  
                 </div>
             </div>
         </div>
