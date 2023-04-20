@@ -113,16 +113,12 @@ body {
     height: 181px;
     border-radius: 5px;
 }
-
-.quizz-transparency {
-    z-index: 2;
+.quizz-transparency{
+    z-index: 3;
     position: absolute;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
-    background-position: center center;
-    background-size: cover;
     width: 340px;
     height: 181px;
-    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
 }
 .quizz-img{
     z-index: 1;
@@ -154,9 +150,6 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png);
-    background-position: center center;
-    background-size: cover;
 }
 
 .quizz_title {
@@ -241,6 +234,32 @@ body {
     height: 175px;
     width: 100%
 }
+.restart {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 57px;
+    width: 260px;
+    height: 52px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    color: #FFF5F4;
+}
+.home {
+    margin: 28px 0px 84px 0px;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    background-color: #FFF5F4;
+    color: #818181;
+}
 /*---------------------------------------*/
 .titulo-page-3{
     font-family: 'Roboto';
@@ -291,6 +310,9 @@ body {
     line-height: 22px;
     color: #BABABA;
 }
+.input_margin{
+    margin-bottom: 15px;
+}
 .botão-page-3{
     font-style: normal;
     font-weight: 400;
@@ -339,9 +361,6 @@ body {
     line-height: 23px;
 }
 .quizz-finalizado{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png);
-    background-position: center center;
-    background-size: cover;
     width: 500px;
     height: 266px;
     border-radius: 5px;

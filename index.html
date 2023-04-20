@@ -25,21 +25,21 @@
         <!--fica SEM a classe hide por padrão-->
         <div class="create_quizz">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
-            <button onclick="create_quizz()" class="button_create_quizz">Criar Quizz</button>
+            <button onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
         </div>
         <!--fica COM a classe hide por padrão-->
         <div class="quizz_container hide">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
-                <ion-icon onclick="create_quizz()" class="plus_quizz" name="add-circle"></ion-icon>
+                <ion-icon onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
             </div>
             <div class="your quizzes">
-                <div class="container-quizz">
+                <div class="container-quizz" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
                 </div>
-                <div class="container-quizz">
+                <div class="container-quizz" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
@@ -50,22 +50,21 @@
         <div class="quizz_container">
             <p class="text_all_quizzes">Todos os Quizzes</p>
             <div class="all quizzes">
-                <div class="container-quizz">
+                <div class="container-quizz" onclick="play_quizz()">
+                    <div class="quizz-transparency"></div>
+                    <p class="text_quizz">Linux </p>  
+                </div>
+                <div class="container-quizz" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
                 </div>
-                <div class="container-quizz">
+                <div class="container-quizz" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
                 </div>
-                <div class="container-quizz">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
-                <div class="container-quizz">
+                <div class="container-quizz" onclick="play_quizz()">
                     <div class="quizz-transparency"></div>
                     <img class="quizz-img"src="https://http.cat/411.jpg"/>
                     <p class="text_quizz">Linux </p>  
@@ -78,7 +77,12 @@
     <!--layout TELA 2 (fica COM a classe hide por padrão)-->
     <div id="page_2" class="full_page hide">
 
-        <header class="quizz_header">
+        <header class="quizz_header" 
+            style="
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png); 
+                background-position: center center; 
+                background-size: cover;
+            ">
             <p class="quizz_title">Quizz title!! :D</p>
         </header>
 
@@ -133,6 +137,8 @@
                 </div>
             </div>
         </div>
+        <button class="restart pointer">Reiniciar Quizz</button>
+        <button class="home pointer">Voltar para home</button>
     </div>
     <!--layout TELA 3.1 (fica COM a classe hide por padrão)-->
     <div id="page_3.1" class="full_page hide">
@@ -157,11 +163,11 @@
             <input class="inputs-page-3" type="text" placeholder="URL da imagem">
             <p>Respostas incorretas</p>
             <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
-            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 1">
+            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 1">
             <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
-            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 2">
+            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 2">
             <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
-            <input class="inputs-page-3" style="margin-bottom: 15px;" type="text" placeholder="URL da imagem 3">
+            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 3">
         </div>
         <div class="container-edits">
             <p>Pergunta 2</p>
@@ -196,7 +202,12 @@
     <!--layout TELA 3.4 (fica COM a classe hide por padrão)-->
     <div id="page_3.4" class="full_page hide">
         <p class="titulo-page-3">Seu quiz está pronto!</p>
-        <div class="quizz-finalizado">
+        <div class="quizz-finalizado" 
+            style="
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png); 
+                background-position: center center; 
+                background-size: cover;
+            ">
             <p>Teste</p>
         </div>
         <button disabled class="botão-page-3">Acessar Quizz</button>
