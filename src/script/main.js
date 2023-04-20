@@ -5,22 +5,37 @@ const endpoints =
     "quizzes": "https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes",
 }
 
-//---------------------------------------------------------------------------
-async function play_quizz() {
+let runtime_data = {
+    currentQuizId: undefined,
+}
 
-    const quizz_id = 10; // no momento estou usando assim só pra conseguir desenvolver o básico. 
-    //esconde a page 1 e mostra a page 2
+//---------------------------------------------------------------------------
+async function play_quizz(quizz_id) {
+
+    if(!quizz_id)
+    {
+        quizz_id = 10; // no momento estou usando assim só pra conseguir desenvolver o básico.
+    }
+
+    runtime_data.currentQuizId = quizz_id 
+
     document.getElementById('page_1').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
 
     const res = await getQuizInfo(quizz_id);
-    console.log(res.data);
 
     updateQuizInfo(res.data);
     
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+function voltarParaHome() 
+{
+    document.getElementById('page_2').classList.add('hide');
+    document.getElementById('page_1').classList.remove('hide');
+
+    runtime_data.currentQuizId = undefined;
+}
 
 function getQuizInfo(quizz_id)
 {
@@ -34,8 +49,12 @@ function getQuizInfo(quizz_id)
 
 function updateQuizInfo(data) {
     const quizz_title = document.querySelector(".quizz_title");
+    quizz_title.innerHTML = data.title;
+    // ADICIONAR FORMA DE MUDAR BACKGROUND do header!
 
     shuffleArray(data.questions);
+    
+    eraseQuiz();
 
     for (let i = 0; i < data.questions.length; i++) {
         const question = data.questions[i];
@@ -46,6 +65,9 @@ function updateQuizInfo(data) {
 
 }
 
+function eraseQuiz() {
+    document.querySelector(".questions-container").innerHTML = "";
+}
 
 function renderQuizQuestion(questionData, INTERN_ID) {
     let options_tags = "";
@@ -83,6 +105,10 @@ function renderQuizQuestion(questionData, INTERN_ID) {
         correctAnswer,
         id: INTERN_ID,
     }
+}
+
+function redefineQuizz() {
+    play_quizz(runtime_data.currentQuizId);
 }
 
 function shuffleArray(array) {
