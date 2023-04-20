@@ -1,18 +1,116 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
 
+const endpoints = 
+{
+    "quizzes": "https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes",
+}
+
 //---------------------------------------------------------------------------
-function play_quizz() {
+async function play_quizz() {
+
+    const quizz_id = 10; // no momento estou usando assim só pra conseguir desenvolver o básico. 
     //esconde a page 1 e mostra a page 2
     document.getElementById('page_1').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
+
+    const res = await getQuizInfo(quizz_id);
+    console.log(res.data);
+
+    updateQuizInfo(res.data);
+    
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+function getQuizInfo(quizz_id)
+{
+    const promisse = axios.get(endpoints.quizzes + "/" + quizz_id);
+    promisse.catch( (error) => {
+        console.error("UM ERRO OCORREU AO TENTAR BUSCAR INFORMAÇÕES NO SERVIDOR: " + error.data);
+    });
+
+    return promisse;
+}
+
+function updateQuizInfo(data) {
+    const quizz_title = document.querySelector(".quizz_title");
+
+    shuffleArray(data.questions);
+
+    for (let i = 0; i < data.questions.length; i++) {
+        const question = data.questions[i];
+        
+        renderQuizQuestion(question, i);
+
+    }
+
+}
+
+
+function renderQuizQuestion(questionData, INTERN_ID) {
+    let options_tags = "";
+    let correctAnswer;    
+
+    shuffleArray(questionData.answers);
+
+    questionData.answers.forEach( (answer) => {
+        if(answer.isCorrectAnswer) correctAnswer = answer.text;
+
+        options_tags += `
+        <div class="options">
+            <img src="${answer.image}"/>
+            <p class="text_options">${answer.text}</p>
+        </div>
+        `
+    });
+
+    document.querySelector("#page_2").innerHTML += `
+    <div class="question_box" data-id="${INTERN_ID}">
+        <div class="content-question_box">
+            
+            <div class="question">
+                <p class="text_question">${questionData.title}</p>
+            </div>
+
+            <div class="images_box">
+                ${options_tags}
+            </div>
+        </div>
+    </div>
+    `
+
+    return {
+        correctAnswer,
+        id: INTERN_ID,
+    }
+}
+
+function shuffleArray(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+} 
+
 
 buscarQuizzes();
 setInterval(buscarQuizzes, 5000);
 function renderizarQuizzes(listaDeQuizzes){
     const quizzesContainer = document.querySelector('.all.quizzes');
-    console.log(quizzesContainer);
+
+    // Comentando a linha para desocupar o console.log();
+    // console.log(quizzesContainer);
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzes.length; i++){
         quizzesContainer.innerHTML += `
@@ -27,7 +125,8 @@ function renderizarQuizzes(listaDeQuizzes){
 function buscarQuizzes(){
     const promiseQuizzes = axios.get('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes');
     promiseQuizzes.then(quizzesBuscados => {
-        console.log(quizzesBuscados.data);
+        // Comentando a linha para desocupar o console.log();
+        //console.log(quizzesBuscados.data);
         renderizarQuizzes(quizzesBuscados.data);
     })
     promiseQuizzes.catch(erroNaBUscaDosQuizzes => {
