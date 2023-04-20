@@ -1,4 +1,33 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
+buscarQuizzes();
+setInterval(buscarQuizzes, 5000);
+function renderizarQuizzes(listaDeQuizzes){
+    const quizzesContainer = document.querySelector('.all.quizzes');
+    console.log(quizzesContainer);
+    quizzesContainer.innerHTML = '';
+    for(let i = 0; i < listaDeQuizzes.length; i++){
+        console.log();
+        quizzesContainer.innerHTML += `
+        <div class="container-quizz">
+            <div class="quizz-transparency"></div>
+            <img class="quizz-img"src="${listaDeQuizzes[i].image}"/>
+            <p class="text_quizz">${listaDeQuizzes[i].title}</p>  
+        </div>`
+    }
+}
+
+function buscarQuizzes(){
+    const promiseQuizzes = axios.get('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes');
+    promiseQuizzes.then(quizzesBuscados => {
+        console.log(quizzesBuscados.data);
+        renderizarQuizzes(quizzesBuscados.data);
+    })
+    promiseQuizzes.catch(erroNaBUscaDosQuizzes => {
+        console.log('Não foi possível conectar com o servidor');
+    })
+}
+
+
 
 //---------------------------------------------------------------------------
 function create_quizz() {
@@ -59,3 +88,4 @@ function send_3_1() {
     document.getElementById('page_3.1').classList.add('hide');
     document.getElementById('page_3.2').classList.remove('hide');
 }
+
