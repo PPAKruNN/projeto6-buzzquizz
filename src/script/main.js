@@ -36,7 +36,8 @@ function FUNCbutton_3_1() {
         EVENTbutton_3_1.addEventListener('click', send_3_1);
         
     } else {
-        EVENTbutton_3_1.classList.remove('pointer');   
+        button_3_1.querySelector('.botão-page-3').disabled = true;
+        EVENTbutton_3_1.classList.remove('pointer'); 
     }
 
 }
