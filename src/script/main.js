@@ -1,4 +1,13 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
+
+//---------------------------------------------------------------------------
+function play_quizz() {
+    //esconde a page 1 e mostra a page 2
+    document.getElementById('page_1').classList.add('hide');
+    document.getElementById('page_2').classList.remove('hide');
+}
+//---------------------------------------------------------------------------
+
 buscarQuizzes();
 setInterval(buscarQuizzes, 5000);
 function renderizarQuizzes(listaDeQuizzes){
@@ -7,7 +16,7 @@ function renderizarQuizzes(listaDeQuizzes){
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzes.length; i++){
         quizzesContainer.innerHTML += `
-        <div class="container-quizz onclick="play_quizz()">
+        <div class="container-quizz pointer" onclick="play_quizz()">
             <div class="quizz-transparency"></div>
             <img class="quizz-img"src="${listaDeQuizzes[i].image}"/>
             <p class="text_quizz">${listaDeQuizzes[i].title}</p>  
@@ -25,17 +34,6 @@ function buscarQuizzes(){
         console.log('Não foi possível conectar com o servidor');
     })
 }
-
-
-
-
-//-----------------------------------------------------------------------------------------
-function play_quizz() {
-    //esconde a page 1 e mostra a page 2
-    document.getElementById('page_1').classList.add('hide');
-    document.getElementById('page_2').classList.remove('hide');
-}
-
 //-----------------------------------------------------------------------------------------
 /*função chamada quando o usuario clica na caixa de perguntas na pagina de criação de perguntas,
 serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
