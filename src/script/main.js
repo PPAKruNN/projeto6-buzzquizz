@@ -6,7 +6,7 @@ function play_quizz() {
     document.getElementById('page_1').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
 }
-//---------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 buscarQuizzes();
 setInterval(buscarQuizzes, 5000);
@@ -34,10 +34,13 @@ function buscarQuizzes(){
         console.log('Não foi possível conectar com o servidor');
     })
 }
-//-----------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let answer_counter = 0; //para contar se tem alguma pergunta não criada
 /*função chamada quando o usuario clica na caixa de perguntas na pagina de criação de perguntas,
 serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
 function toggle_answer(clicked) {
+
+    answer_counter++
 
     clicked.setAttribute('onclick', null);
     clicked.classList.remove('container-edits','pointer');
@@ -60,12 +63,12 @@ function toggle_answer(clicked) {
         </div>
     `;
 }
-//-----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 let ARR_3_1, N, counterSEND;
-/*a cada sub página da página 3.1 essa variavel vai mudar, assim alterando qual botão 
+/*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
-//-----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 function create_quizz() {
 
     counterSEND = 3.1;
@@ -80,6 +83,23 @@ function create_quizz() {
     setInterval(enable, 100);
 
 }
+//------------------------------------------------------------------------------
+//cada botão de cada página altera o valor do counterSEND, e essa função vai executar a função equivalente a ele
+function send() {
+    if (counterSEND === 3.1) {
+
+        send_3_1();
+        
+    } else if (counterSEND === 3.2) {
+        //vai entrar somente caso todas as perguntas tenham sido clicadas: função toggle_answer(clicked)
+        if (answer_counter === P-1) {
+            answer_counter = 0;
+            send_3_2();
+        } else {
+            alert('É necessário criar todas as suas perguntas');
+        }
+    }
+}
 //-------------------------
 /*precisei fazer a função ENABLE button ser chamada após essa nova porque usar setInterval 
 para chamar uma função inserindo um parametro faz ela ser executada somente uma vez*/
@@ -90,17 +110,8 @@ function enable () {
 }
 
 //-------------------------
-//cada botão de cada página altera o valor do counterSEND, e essa função vai executar a função equivalente a ele
-function send() {
-    if (counterSEND === 3.1) {
-        send_3_1();
-    } else if (counterSEND === 3.2) {
-        send_3_2();
-    }
-}
-//-------------------------
 let E_button, FOR_E_button;
-//------
+//----
 //verifica se todos os inputs da page (equivalente ao element.id) estão preenchidos, se sim libera o botão
 function ENABLE_button(page) {
 
@@ -130,7 +141,7 @@ function ENABLE_button(page) {
     }
 
 }
-//----------------------------
+//----------------------------------------------------------
 
 function send_3_1() {
 
@@ -160,40 +171,35 @@ function send_3_1() {
         //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
         FOR_E_button.forEach( array => {array.value = "";});
 
-        create_quizz_pt2();
+//------------------------        
+        counterSEND = 3.2;
+
+        document.getElementById('page_3.1').classList.add('hide');
+        //element será redefinido para levar a page 3.2 em consideração com as funções enable e ENABLE_button
+        element = document.getElementById('page_3.2');
+        element.classList.remove('hide');
+        //chama a função enable a cada 0,1 segundos
+        setInterval(enable, 100);
+    
+        //renderiza na tela 3.2 divs com perguntas em numero equivalente ao escolhido pelo usuario
+        let answer = document.getElementById('answers');
+        for (let i = 0; i < P-1; i++) {
+    
+            answer.innerHTML += `
+                <div onclick="toggle_answer(this)" class="container-edits pointer">
+                    <p>Pergunta ${i+2}</p>
+                    <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+                </div>
+            `;
+            
+        }
     }
-
-
 }
-
-//----------------------------
-function create_quizz_pt2() {
-
-    //renderiza na tela 3.2 divs com perguntas em numero equivalente ao escolhido pelo usuario
-    let answer = document.getElementById('answers');
-    for (let i = 0; i < P-1; i++) {
-
-        answer.innerHTML += `
-            <div onclick="toggle_answer(this)" class="container-edits pointer">
-                <p>Pergunta ${i+2}</p>
-                <ion-icon class="icone-edit" name="create-outline"></ion-icon>
-            </div>
-        `;
-        
-    }
-
-    counterSEND = 3.2;
-
-    document.getElementById('page_3.1').classList.add('hide');
-    //element será redefinido para levar a page 3.2 em consideração com as funções enable e ENABLE_button
-    element = document.getElementById('page_3.2');
-    element.classList.remove('hide');
-    //chama a função enable a cada 0,1 segundos
-    setInterval(enable, 100);
-}
-//----
-
+//----------------------------------------------------------
 function send_3_2() {
-    console.log('aqui');    
+
+    //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
+    FOR_E_button.forEach( array => {array.value = "";})
+
 }
 
