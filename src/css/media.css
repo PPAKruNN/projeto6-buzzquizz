@@ -10,6 +10,10 @@
         width: 340px;
         gap: 12px 0px;
     }
+
+    .all {
+        margin-bottom: 14px;
+    }
     /*----------------*/
     .quizz_header {
         height: 142px;

@@ -99,6 +99,9 @@ body {
     line-height: 23px;
     color: #000000;
 }
+.all {
+    margin-bottom: 211px;
+}
 
 .quizzes {
     display: flex;
