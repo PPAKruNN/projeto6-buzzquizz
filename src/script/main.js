@@ -1,13 +1,16 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
 
+let ARR_3_1;
 //---------------------------------------------------------------------------
 function create_quizz() {
 
     //esconde a page 1 e mostra a page 3.1
     document.getElementById('page_1').classList.add('hide');
-    document.getElementById('page_3.1').classList.remove('hide');
-    //chama a função button_3_1 a cada 0,1 segundos
-    setInterval(FUNCbutton_3_1, 100);
+
+    element = document.getElementById('page_3.1');
+    element.classList.remove('hide');
+    //chama a função ENABLE_button a cada 0,1 segundos (usando o id do elemento como parametro)
+    setInterval(ENABLE_button(element.id), 100);
 
 }
 //------
@@ -16,44 +19,45 @@ function play_quizz() {
     document.getElementById('page_1').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
 }
-//------
-let ARR_3_1, button_3_1, FORbutton_3_1;
-//verifica se todos os inputs da page 3.1 estão preenchidos, se sim libera o botão
-function FUNCbutton_3_1() {
+//-------------------------------------
+let E_button, FOR_E_button;
+
+//verifica se todos os inputs da page (equivalente ao element.id) estão preenchidos, se sim libera o botão
+function ENABLE_button(page) {
 
     let counter = 0;
 
-    button_3_1 = document.getElementById('page_3.1');
-    FORbutton_3_1 = button_3_1.querySelectorAll('.inputs-page-3');
+    E_button = document.getElementById(page);
+    FOR_E_button = E_button.querySelectorAll('.inputs-page-3');
 
-    FORbutton_3_1.forEach( array => {
+    FOR_E_button.forEach( array => {
         if (array.value !== "") {
             counter += 1;
         }
     });
 
-    const EVENTbutton_3_1 = button_3_1.querySelector('.botão-page-3');
+    const EVENT_E_button = E_button.querySelector('.botão-page-3');
 
-    if  (counter === FORbutton_3_1.length) {
+    if  (counter === FOR_E_button.length) {
 
-        button_3_1.querySelector('.botão-page-3').disabled = false;
+        E_button.querySelector('.botão-page-3').disabled = false;
 
-        EVENTbutton_3_1.classList.add('pointer');
-        EVENTbutton_3_1.addEventListener('click', send_3_1);
+        EVENT_E_button.classList.add('pointer');
+        EVENT_E_button.addEventListener('click', send_3_1);
         
     } else {
-        button_3_1.querySelector('.botão-page-3').disabled = true;
-        EVENTbutton_3_1.classList.remove('pointer'); 
+        E_button.querySelector('.botão-page-3').disabled = true;
+        EVENT_E_button.classList.remove('pointer'); 
     }
 
 }
 function send_3_1() {
 
     ARR_3_1 = [{
-        T_quizz: FORbutton_3_1[0].value, 
-        URL_quizz: FORbutton_3_1[1].value,
-        QTD_P_quizz: FORbutton_3_1[2].value,
-        QTD_N_quizz: FORbutton_3_1[3].value
+        T_quizz: FOR_E_button[0].value, 
+        URL_quizz: FOR_E_button[1].value,
+        QTD_P_quizz: FOR_E_button[2].value,
+        QTD_N_quizz: FOR_E_button[3].value
     }];
 
     console.log(ARR_3_1);
@@ -73,7 +77,7 @@ function send_3_1() {
         alert('O título do Quizz deve ter entre 20 e 65 caracteres\nA URL deve ser válida\nA quantidade de perguntas deve ser maior que 2\nA quantidade de níveis deve ser maior que 1')
     } else {
         //apaga os value digitados nos inputs
-        FORbutton_3_1.forEach( array => {array.value = "";});
+        FOR_E_button.forEach( array => {array.value = "";});
 
         document.getElementById('page_3.1').classList.add('hide');
         document.getElementById('page_3.2').classList.remove('hide');
