@@ -64,7 +64,7 @@ function renderQuizQuestion(questionData, INTERN_ID) {
         `
     });
 
-    document.querySelector("#page_2").innerHTML += `
+    document.querySelector(".questions-container").innerHTML += `
     <div class="question_box" data-id="${INTERN_ID}">
         <div class="content-question_box">
             
