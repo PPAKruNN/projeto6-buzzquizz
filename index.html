@@ -20,18 +20,18 @@
     <header class="top_bar">BuzzQuizz</header>
 
     <!--layout TELA 1 (fica SEM a classe hide por padrão)-->
-    <div id="page_1" class="full_page hide">
+    <div id="page_1" class="full_page">
 
         <!--fica SEM a classe hide por padrão-->
         <div class="create_quizz">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
-            <button class="button_create_quizz">Criar Quizz</button>
+            <button onclick="create_quizz()" class="button_create_quizz">Criar Quizz</button>
         </div>
         <!--fica COM a classe hide por padrão-->
         <div class="your quizz_container hide">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
-                <ion-icon class="plus_quizz" name="add-circle"></ion-icon>
+                <ion-icon onclick="create_quizz()" class="plus_quizz" name="add-circle"></ion-icon>
             </div>
             <div class="quizzes">
                 <div class="quizz">
@@ -123,7 +123,7 @@
         </div>
     </div>
     <!--layout TELA 3.1 (fica COM a classe hide por padrão)-->
-    <div id="page_3" class="full_page hide">
+    <div id="page_3.1" class="full_page hide">
         <p class="titulo-page-3">Comece pelo começo</p>
         <div class="container-inputs">
             <input class="inputs-page-3" type="text" placeholder="Título do seu quizz">
@@ -131,10 +131,10 @@
             <input class="inputs-page-3" type="text" placeholder="Quantidade de perguntas do quizz">
             <input class="inputs-page-3" type="text" placeholder="Quantidade de níveis do quizz">
         </div>
-        <button class="botão-page-3">Prosseguir pra criar perguntas</button>
+        <button disabled class="botão-page-3">Prosseguir pra criar perguntas</button>
     </div>
     <!--layout TELA 3.2 (fica COM a classe hide por padrão)-->
-    <div id="page_3" class="full_page hide">
+    <div id="page_3.2" class="full_page hide">
         <p class="titulo-page-3">Crie suas perguntas</p>
         <div class="container-inputs">
             <p>Pergunta 1</p>
@@ -159,10 +159,10 @@
             <p>Pergunta 3</p>
             <ion-icon class="icone-edit" name="create-outline"></ion-icon>
         </div>
-        <button class="botão-page-3">Prosseguir pra criar níveis</button>
+        <button disabled class="botão-page-3">Prosseguir pra criar níveis</button>
     </div>
     <!--layout TELA 3.3 (fica COM a classe hide por padrão)-->
-    <div id="page_3" class="full_page hide">
+    <div id="page_3.3" class="full_page hide">
         <p class="titulo-page-3">Agora, decida os níveis</p>
         <div class="container-inputs">
             <p>Nível 1</p>
@@ -179,20 +179,21 @@
             <p>Nível 3</p>
             <ion-icon class="icone-edit" name="create-outline"></ion-icon>
         </div>
-        <button class="botão-page-3">Finalizar Quizz</button>
+        <button disabled class="botão-page-3">Finalizar Quizz</button>
     </div>
-    <!--layout TELA 3.3 (fica COM a classe hide por padrão)-->
-    <div id="page_3" class="full_page">
+    <!--layout TELA 3.4 (fica COM a classe hide por padrão)-->
+    <div id="page_3.4" class="full_page hide">
         <p class="titulo-page-3">Seu quiz está pronto!</p>
         <div class="quizz-finalizado">
             <p>Teste</p>
         </div>
-        <button class="botão-page-3">Acessar Quizz</button>
+        <button disabled class="botão-page-3">Acessar Quizz</button>
         <button class="botão-voltar-page-3">Voltar para home</button>
     </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <script src="./src/script/main.js"></script>
