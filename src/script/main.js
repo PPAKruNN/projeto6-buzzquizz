@@ -1,8 +1,10 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
 
-let ARR_3_1;
+let ARR_3_1, counterSEND;
 //---------------------------------------------------------------------------
 function create_quizz() {
+
+    counterSEND = 3.1;
 
     //esconde a page 1 e mostra a page 3.1
     document.getElementById('page_1').classList.add('hide');
@@ -43,7 +45,7 @@ function ENABLE_button(page) {
         E_button.querySelector('.botão-page-3').disabled = false;
 
         EVENT_E_button.classList.add('pointer');
-        EVENT_E_button.addEventListener('click', send_3_1);
+        EVENT_E_button.addEventListener('click', send);
         
     } else {
         E_button.querySelector('.botão-page-3').disabled = true;
@@ -51,6 +53,14 @@ function ENABLE_button(page) {
     }
 
 }
+//cada botão de cada página altera o valor do counterSEND, e essa função vai executar a equivalente a ele
+function send() {
+    if (counterSEND === 3.1) {
+        send_3_1();
+    }
+}
+//----------------------------
+
 function send_3_1() {
 
     ARR_3_1 = [{
