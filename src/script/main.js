@@ -1,7 +1,20 @@
 axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
 
+
+//-----------------------------------------------------------------------------------------
+function play_quizz() {
+    //esconde a page 1 e mostra a page 2
+    document.getElementById('page_1').classList.add('hide');
+    document.getElementById('page_2').classList.remove('hide');
+}
+
+
+//-----------------------------------------------------------------------------------------
 let ARR_3_1, counterSEND;
-//---------------------------------------------------------------------------
+/*a cada sub página da página 3.1 essa variavel vai mudar, assim alterando qual botão 
+será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
+let element;
+//-----------------------------------------------------------------------------------------
 function create_quizz() {
 
     counterSEND = 3.1;
@@ -9,21 +22,32 @@ function create_quizz() {
     //esconde a page 1 e mostra a page 3.1
     document.getElementById('page_1').classList.add('hide');
 
+    //é aqui onde é definido qual página a função enable e ENABLE_button vão levar em consideração
     element = document.getElementById('page_3.1');
     element.classList.remove('hide');
-    //chama a função ENABLE_button a cada 0,1 segundos (usando o id do elemento como parametro)
-    setInterval(ENABLE_button(element.id), 100);
+    //chama a função enable a cada 0,1 segundos
+    setInterval(enable, 100);
 
 }
-//------
-function play_quizz() {
-    //esconde a page 1 e mostra a page 2
-    document.getElementById('page_1').classList.add('hide');
-    document.getElementById('page_2').classList.remove('hide');
+//-------------------------
+/*precisei fazer a função ENABLE button ser chamada após essa nova porque usar setInterval 
+para chamar uma função inserindo um parametro faz ela ser executada somente uma vez*/
+
+/*chama a função ENABLE_button (usando o id do elemento da página ATUAL como parametro)*/
+function enable () {
+    ENABLE_button(element.id);
 }
-//-------------------------------------
+
+//-------------------------
+//cada botão de cada página altera o valor do counterSEND, e essa função vai executar a equivalente a ele
+function send() {
+    if (counterSEND === 3.1) {
+        send_3_1();
+    }
+}
+//-------------------------
 let E_button, FOR_E_button;
-
+//------
 //verifica se todos os inputs da page (equivalente ao element.id) estão preenchidos, se sim libera o botão
 function ENABLE_button(page) {
 
@@ -52,12 +76,6 @@ function ENABLE_button(page) {
         EVENT_E_button.classList.remove('pointer'); 
     }
 
-}
-//cada botão de cada página altera o valor do counterSEND, e essa função vai executar a equivalente a ele
-function send() {
-    if (counterSEND === 3.1) {
-        send_3_1();
-    }
 }
 //----------------------------
 
