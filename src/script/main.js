@@ -6,9 +6,8 @@ function renderizarQuizzes(listaDeQuizzes){
     console.log(quizzesContainer);
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzes.length; i++){
-        console.log('oi');
         quizzesContainer.innerHTML += `
-        <div class="container-quizz">
+        <div class="container-quizz onclick="play_quizz()">
             <div class="quizz-transparency"></div>
             <img class="quizz-img"src="${listaDeQuizzes[i].image}"/>
             <p class="text_quizz">${listaDeQuizzes[i].title}</p>  
