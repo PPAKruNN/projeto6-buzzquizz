@@ -7,6 +7,7 @@ const endpoints =
 
 let runtime_data = {
     currentQuizId: undefined,
+    currentQuizAnswers: [],
 }
 
 //---------------------------------------------------------------------------
@@ -34,7 +35,9 @@ function voltarParaHome()
     document.getElementById('page_2').classList.add('hide');
     document.getElementById('page_1').classList.remove('hide');
 
+    eraseQuiz();
     runtime_data.currentQuizId = undefined;
+    runtime_data.currentQuizAnswers = [];
 }
 
 function getQuizInfo(quizz_id)
@@ -59,27 +62,24 @@ function updateQuizInfo(data) {
     for (let i = 0; i < data.questions.length; i++) {
         const question = data.questions[i];
         
-        renderQuizQuestion(question, i);
-
+        const answerData = renderQuizQuestion(question, i);
+        runtime_data.currentQuizAnswers[answerData.id] = answerData.correctAnswer;
     }
 
 }
 
-function eraseQuiz() {
-    document.querySelector(".questions-container").innerHTML = "";
-}
 
 function renderQuizQuestion(questionData, INTERN_ID) {
     let options_tags = "";
     let correctAnswer;    
-
+    
     shuffleArray(questionData.answers);
 
     questionData.answers.forEach( (answer) => {
         if(answer.isCorrectAnswer) correctAnswer = answer.text;
-
+        
         options_tags += `
-        <div class="options">
+        <div class="options" onclick="selectOption(this)">
             <img src="${answer.image}"/>
             <p class="text_options">${answer.text}</p>
         </div>
@@ -88,28 +88,46 @@ function renderQuizQuestion(questionData, INTERN_ID) {
 
     document.querySelector(".questions-container").innerHTML += `
     <div class="question_box" data-id="${INTERN_ID}">
-        <div class="content-question_box">
-            
-            <div class="question">
-                <p class="text_question">${questionData.title}</p>
-            </div>
-
-            <div class="images_box">
-                ${options_tags}
-            </div>
-        </div>
+    <div class="content-question_box">
+    
+    <div class="question">
+    <p class="text_question">${questionData.title}</p>
     </div>
+    
+    <div class="images_box">
+    ${options_tags}
+    </div>
+        </div>
+        </div>
     `
-
+    
     return {
         correctAnswer,
         id: INTERN_ID,
     }
 }
 
+function eraseQuiz() {
+    document.querySelector(".questions-container").innerHTML = "";
+}
+
 function redefineQuizz() {
     play_quizz(runtime_data.currentQuizId);
+    document.querySelector(".quizz_header").scrollIntoView();
 }
+
+//---------------------------------------------------------------------------------------------
+
+function selectOption(el) {
+    const questionbox = el.parentElement.parentElement.parentElement;
+    let id =  questionbox.dataset.id
+
+    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[id];
+    console.log("A resposta está correta?:" + isCorrectAnswer);
+}
+
+
+
 
 function shuffleArray(array) {
     let currentIndex = array.length,  randomIndex;
