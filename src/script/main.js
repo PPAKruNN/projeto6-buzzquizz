@@ -7,7 +7,11 @@ const endpoints =
 
 let runtime_data = {
     currentQuizId: undefined,
-    currentQuizAnswers: []
+    currentQuizAnswers: [],
+    currentQuizProgress: {
+        totalQuestionsNumber: undefined,
+        gotRightQuestions: undefined,
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +70,9 @@ function updateQuizInfo(data) {
     
     eraseQuiz();
 
+    runtime_data.currentQuizProgress.totalQuestionsNumber = data.questions.length;
+    runtime_data.currentQuizProgress.gotRightQuestions = 0;
+
     for (let i = 0; i < data.questions.length; i++) {
         const question = data.questions[i];
         
@@ -96,7 +103,7 @@ function renderQuizQuestion(questionData, INTERN_ID) {
     });
 
     document.querySelector(".questions-container").innerHTML += `
-    <div class="question_box" data-id="${INTERN_ID}">
+    <div class="question_box" data-idd="${INTERN_ID}">
         <div class="content-question_box">
             
             <div class="question" style="background-color: ${questionData.color}">
@@ -129,25 +136,34 @@ function redefineQuizz() {
 
 function selectOption(el) {
     const questionbox = el.parentElement.parentElement.parentElement;
-    let questionId =  questionbox.dataset.id
+    let questionId =  questionbox.dataset.idd
     let selectedText = el.innerText;
 
     let isCorrectAnswer = selectedText == runtime_data.currentQuizAnswers[questionId];
 
     console.log("A resposta está correta?:" + isCorrectAnswer);
 
-    questionVisualEmphasis(selectedText, questionId)
+    questionVisualEmphasis(selectedText, questionId);
+    evaluateQuestion(isCorrectAnswer, questionId);
 }
 
 
 
 function evaluateQuestion(isCorrect, questionId) {
-    
+    if(isCorrect) runtime_data.currentQuizProgress.gotRightQuestions++;
+    setTimeout( () => {
+        const nextQuestion = document.querySelector(`[data-idd="${Number(questionId) + 1}"]`)
+        if(nextQuestion)
+        {
+            nextQuestion.scrollIntoView({behavior: "smooth", block: "center"});
+        }
+    }, 2000)
+
 }
 
 function questionVisualEmphasis(selectedOptionText, questionId)
 {
-    questionOptions = document.querySelectorAll(`[data-id="${questionId}"] .options`);
+    questionOptions = document.querySelectorAll(`[data-idd="${questionId}"] .options`);
 
     questionOptions.forEach( (option) => {
         if(option.innerText == runtime_data.currentQuizAnswers[questionId])
@@ -217,7 +233,7 @@ function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando cli
 //localStorage.removeItem("ids");
 
 function QuizzesDoUsuario(quizz){
-    console.log(quizz.id);
+    //console.log(quizz.id);
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
         console.log(listaDeQuizzesDoUsuario[i].id)
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
@@ -230,7 +246,7 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
         return true;
     }else{
         for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-            console.log(listaDeQuizzesDoUsuario[i].id)
+            //console.log(listaDeQuizzesDoUsuario[i].id)
             if (quizz.id !== listaDeQuizzesDoUsuario[i].id){
                 return true;
             }
@@ -241,7 +257,7 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
 //Para renderizar os quizzes do usuraio analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
 function renderizarUserQuizzes(listaDeQuizzes){
     const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
-    console.log(listaDeQuizzesfiltradasParaOUsuario);
+    //console.log(listaDeQuizzesfiltradasParaOUsuario);
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
@@ -259,9 +275,9 @@ function renderizarUserQuizzes(listaDeQuizzes){
 }
 
 function renderizarQuizzes(listaDeQuizzes){
-    console.log(listaDeQuizzes);
+    //console.log(listaDeQuizzes);
     const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
-    console.log(listaDeQuizzesGeral);
+    //console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
