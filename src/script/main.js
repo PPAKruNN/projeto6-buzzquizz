@@ -190,7 +190,7 @@ function toggle_answer(clicked) {
     clicked.classList.remove('container-edits','pointer');
 
     clicked.innerHTML = `
-        <div id ="${clicked.innerText.replace(/(\s|P|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
+        <div id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
             <p>${clicked.innerText}</p>
             <input class="inputs-page-3" type="text" placeholder="Texto da pergunta">
             <input class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
@@ -365,7 +365,7 @@ function send_3_2() {
     for (let i = 1; i <= P; i++) {
 
         //guarda na constante pergunta toda a div com id = i, que começa em 1 e vai até P, numero de perguntas que o jogador escolheu
-        const pergunta = document.getElementById(i);
+        const pergunta = document.getElementById(`P${i}`);
         //guarda na constante FOR_pergunta todos uns inputs que estão na div de id = i;
         const FOR_pergunta = pergunta.querySelectorAll('.inputs-page-3');
         //guarda num array temporario o .value (digitado) de todos esses inputs;
