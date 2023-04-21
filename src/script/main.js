@@ -180,7 +180,7 @@ function buscarQuizzes(){
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let answer_counter = 0; //para contar se tem alguma pergunta não criada
-/*função chamada quando o usuario clica na caixa de perguntas na pagina de criação de perguntas,
+/*função chamada quando o usuario clica na caixa de pergunta na pagina de criação de perguntas,
 serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
 function toggle_answer(clicked) {
 
@@ -208,12 +208,34 @@ function toggle_answer(clicked) {
     `;
 }
 //------------------------------------------------------------------------------
+let level_counter = 0; //para contar se tem algum nível não criado
+/*função chamada quando o usuario clica na caixa de nível na pagina de criação de perguntas,
+serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
+function toggle_level(clicked) {
+
+    level_counter++;
+
+    clicked.setAttribute('onclick', null);
+    clicked.classList.remove('container-edits', 'pointer');
+    
+    clicked.innerHTML = `
+        <div id ="${clicked.innerText.replace(/(\s|í|v|e|l)/g, "")}" class="container-inputs">
+            <p>${clicked.innerText}</p>
+            <input class="inputs-page-3" type="text" placeholder="Título do nível">
+            <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
+            <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
+            <input class="inputs-page-3" type="text" placeholder="Descrição do nível">
+        </div>
+    `;
+}
+//------------------------------------------------------------------------------
 let created_quizz = {};
 //--------------------------------------
-let ARR_3_1, ARR_3_2, N, P, counterSEND;
+let ARR_3_1, ARR_3_2, N, P, ARR_3_3, counterSEND;
 /*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
+let error_3_3;
 //------------------------------------------------------------------------------
 function create_quizz() {
 
@@ -235,13 +257,20 @@ function send() {
     if (counterSEND === 3.1) {
 
         send_3_1();
-        
+
     } else if (counterSEND === 3.2) {
         //vai entrar somente caso todas as perguntas tenham sido clicadas: função toggle_answer(clicked)
         if (answer_counter === P-1) {
             send_3_2();
         } else {
             alert('É necessário criar todas as suas perguntas');
+        }
+    } else if (counterSEND === 3.3) {
+        //vai entrar somente caso todas os níveis tenham sido clicados: função toggle_level(clicked)
+        if (level_counter === N-1) {
+            send_3_3();
+        } else {
+            alert('É necessário criar todos os seus níveis');
         }
     }
 }
@@ -308,14 +337,13 @@ function send_3_1() {
     }];
 
     const T = ARR_3_1[0].T_quizz; 
-    let T_l = T.length;
     const U = ARR_3_1[0].URL_quizz;
     P = parseInt(ARR_3_1[0].QTD_P_quizz);
     N = parseInt(ARR_3_1[0].QTD_N_quizz);
 
-    if (T_l < 20 || T_l > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
+    /* if (T.length < 20 || T.length > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
         alert('O título do Quizz deve ter entre 20 e 65 caracteres\nA URL deve ser válida\nA quantidade de perguntas deve ser maior que 2\nA quantidade de níveis deve ser maior que 1');
-    } else {
+    } else { */
             
         //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
         FOR_E_button.forEach( array => {array.value = "";});
@@ -342,7 +370,7 @@ function send_3_1() {
             `;
             
         }
-    }
+    /* } */
 //-----------------
     created_quizz =
 
@@ -376,7 +404,6 @@ function send_3_2() {
         TEMP_array = [];
 
     }
-    console.log( ARR_3_2);
     
     for (let i = 0; i < P; i++) {
 
@@ -421,10 +448,7 @@ function send_3_2() {
             }
         );
     }
-    console.log(created_quizz)
 
-        
-    
         //reseta o contador da função toggle_answer(clicked)
         answer_counter = 0;
         //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
@@ -433,5 +457,94 @@ function send_3_2() {
 //------------------------ 
         counterSEND = 3.3;
 
+        document.getElementById('page_3.2').classList.add('hide');
+        //element será redefinido para levar a page 3.3 em consideração com as funções enable e ENABLE_button
+        element = document.getElementById('page_3.3');
+        element.classList.remove('hide');
+        //chama a função enable a cada 0,1 segundos
+        setInterval(enable, 100);
+
+        //renderiza na tela 3.2 divs com perguntas em numero equivalente ao escolhido pelo usuario
+        const level = document.getElementById('levels');
+        for (let i = 0; i < N-1; i++) {
+            
+            level.innerHTML += `
+                <div onclick="toggle_level(this)" class="container-edits pointer">
+                    <p>Nível ${i+2}</p>
+                    <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+                </div>
+            `;
+        }
 }
+//----------------------------------------------------------
+function send_3_3 () {
+
+    ARR_3_3 = {obj_niveis: []};
+    let TEMP_array = [];
+
+    //a função toggle_answer(clicked) renderiza caixas de pergunta com ids que vão de 2 até o numero que o jogador escolher. A primeira por padrão tem o id 1
+    for (let i = 1; i <= N; i++) {
+
+        //guarda na constante nivel toda a div com id = i, que começa em 1 e vai até N, numero de níveis que o jogador escolheu
+        const nivel = document.getElementById(`N${i}`);
+        //guarda na constante FOR_nivel todos uns inputs que estão na div de id = i;
+        const FOR_nivel = nivel.querySelectorAll('.inputs-page-3');
+        //guarda num array temporario o .value (digitado) de todos esses inputs;
+        FOR_nivel.forEach( array => {TEMP_array.push(array.value);});
+        //guarda esse array temporario num objeto
+        ARR_3_3.obj_niveis.push(TEMP_array);
+        //zera o array temporario para que o ciclo recomece na proxima iteração até que i seja igual a N
+        TEMP_array = [];
+
+    }
+
+    for(let i = 0; i < N; i++) {
+
+        let text_N = ARR_3_3.obj_niveis[i][0];
+        let min_N = parseInt(ARR_3_3.obj_niveis[i][1]);
+        let url_N = ARR_3_3.obj_niveis[i][2];
+        let desc_N = ARR_3_3.obj_niveis[i][3];
+
+        created_quizz.levels.push (
+
+            {
+                title: text_N,
+                image: url_N,
+                text: desc_N,
+                minValue: min_N 
+            }
+        );
+
+        const some_zero = created_quizz.levels.some( obj => obj.minValue === 0);
+
+        if (some_zero === false || text_N.length < 10 || min_N < 0 || min_N > 100 || isURL(url_N) === false || desc_N.length < 30) {
+
+            error_3_3 = true;
+
+        } else {
+
+            error_3_3 = false
+    
+        }
+    }
+    
+    if (error_3_3 === false) {
+
+        console.log(created_quizz);
+        
+        //reseta o contador da função toggle_level(clicked)
+        level_counter = 0;
+        //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
+        FOR_E_button.forEach( array => {array.value = "";});
+    //------------------------ 
+    
+        counterSEND = 3.4; 
+
+    } else {
+
+        alert('error');
+
+    }
+}
+
 
