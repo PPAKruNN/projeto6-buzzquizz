@@ -46,7 +46,7 @@ function toggle_answer(clicked) {
     clicked.classList.remove('container-edits','pointer');
 
     clicked.innerHTML = `
-        <div class="container-inputs">
+        <div id ="${clicked.innerText.replace(/(\s|P|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
             <p>${clicked.innerText}</p>
             <input class="inputs-page-3" type="text" placeholder="Texto da pergunta">
             <input class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
@@ -64,7 +64,9 @@ function toggle_answer(clicked) {
     `;
 }
 //------------------------------------------------------------------------------
-let ARR_3_1, N, counterSEND;
+let created_quizz = {};
+//--------------------------------------
+let ARR_3_1, ARR_3_2, N, P, counterSEND;
 /*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
@@ -93,14 +95,13 @@ function send() {
     } else if (counterSEND === 3.2) {
         //vai entrar somente caso todas as perguntas tenham sido clicadas: função toggle_answer(clicked)
         if (answer_counter === P-1) {
-            answer_counter = 0;
             send_3_2();
         } else {
             alert('É necessário criar todas as suas perguntas');
         }
     }
 }
-//-------------------------
+//------------------------
 /*precisei fazer a função ENABLE button ser chamada após essa nova porque usar setInterval 
 para chamar uma função inserindo um parametro faz ela ser executada somente uma vez*/
 
@@ -109,7 +110,7 @@ function enable () {
     ENABLE_button(element.id);
 }
 
-//-------------------------
+//------------------------
 let E_button, FOR_E_button;
 //----
 //verifica se todos os inputs da page (equivalente ao element.id) estão preenchidos, se sim libera o botão
@@ -142,7 +143,17 @@ function ENABLE_button(page) {
 
 }
 //----------------------------------------------------------
-
+//função para verificar se o objeto é um url de imagem válido
+function isURL(obj) {
+    var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif)$/i;
+    return pattern.test(obj);
+}
+//função para verificar se o objeto é uma cor hexadecimal valida
+function isHexColor(obj) {
+    var hexRegex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+    return hexRegex.test(obj);
+}
+//-----------------------------------------------------------
 function send_3_1() {
 
     ARR_3_1 = [{
@@ -152,19 +163,13 @@ function send_3_1() {
         QTD_N_quizz: FOR_E_button[3].value
     }];
 
-    console.log(ARR_3_1);
-
-    const T = ARR_3_1[0].T_quizz.length; //será usada para o if verificar se a string tem entre 20 e 65 caracteres
+    const T = ARR_3_1[0].T_quizz; 
+    let T_l = T.length;
     const U = ARR_3_1[0].URL_quizz;
-    P = parseInt(ARR_3_1[0].QTD_P_quizz); //será usada para o if verificar se a QTD de P é menor que 3
-    N = parseInt(ARR_3_1[0].QTD_N_quizz); //será usada para o if verificar se a QTD de N é menor que 2
+    P = parseInt(ARR_3_1[0].QTD_P_quizz);
+    N = parseInt(ARR_3_1[0].QTD_N_quizz);
 
-    //função para verificar se o objeto é um url de imagem válido
-    function isURL(obj) {
-        var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif)$/i;
-        return pattern.test(obj);
-    }
-    if (T < 20 || T > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
+    if (T_l < 20 || T_l > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
         alert('O título do Quizz deve ter entre 20 e 65 caracteres\nA URL deve ser válida\nA quantidade de perguntas deve ser maior que 2\nA quantidade de níveis deve ser maior que 1');
     } else {
             
@@ -194,12 +199,95 @@ function send_3_1() {
             
         }
     }
+//-----------------
+    created_quizz =
+
+        {
+            title: T,
+            image: U,
+
+            questions: [],
+
+            levels: []
+        }
 }
 //----------------------------------------------------------
 function send_3_2() {
 
-    //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
-    FOR_E_button.forEach( array => {array.value = "";})
+    ARR_3_2 = {obj_perguntas: []};
+    let TEMP_array = [];
+
+    //a função toggle_answer(clicked) renderiza caixas de pergunta com ids que vão de 2 até o numero que o jogador escolher. A primeira por padrão tem o id 1
+    for (let i = 1; i <= P; i++) {
+
+        //guarda na constante pergunta toda a div com id = i, que começa em 1 e vai até P, numero de perguntas que o jogador escolheu
+        const pergunta = document.getElementById(i);
+        //guarda na constante FOR_pergunta todos uns inputs que estão na div de id = i;
+        const FOR_pergunta = pergunta.querySelectorAll('.inputs-page-3');
+        //guarda num array temporario o .value (digitado) de todos esses inputs;
+        FOR_pergunta.forEach( array => {TEMP_array.push(array.value);});
+        //guarda esse array temporario num objeto
+        ARR_3_2.obj_perguntas.push(TEMP_array);
+        //zera o array temporario para que o ciclo recomece na proxima iteração até que i seja igual a P
+        TEMP_array = [];
+
+    }
+    console.log( ARR_3_2);
+    
+    for (let i = 0; i < P; i++) {
+
+        let text_P = ARR_3_2.obj_perguntas[i][0];
+        let color_P = ARR_3_2.obj_perguntas[i][1];
+        let right_P = ARR_3_2.obj_perguntas[i][2];
+        let right_P_img = ARR_3_2.obj_perguntas[i][3];
+        let wrong_P1 = ARR_3_2.obj_perguntas[i][4];
+        let wrong_P1_img = ARR_3_2.obj_perguntas[i][5];
+        let wrong_P2 = ARR_3_2.obj_perguntas[i][6];
+        let wrong_P2_img = ARR_3_2.obj_perguntas[i][7];
+        let wrong_P3 = ARR_3_2.obj_perguntas[i][8];
+        let wrong_P3_img = ARR_3_2.obj_perguntas[i][9];
+//-------------
+        created_quizz.questions.push (
+            {
+                title: text_P,
+                color: color_P,
+                answers: [
+                    {
+                        text: right_P,
+                        image: right_P_img,
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: wrong_P1,
+                        image: wrong_P1_img,
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: wrong_P2,
+                        image: wrong_P2_img,
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: wrong_P3,
+                        image: wrong_P3_img,
+                        isCorrectAnswer: false
+                    }
+
+                ]
+            }
+        );
+    }
+    console.log(created_quizz)
+
+        
+    
+        //reseta o contador da função toggle_answer(clicked)
+        answer_counter = 0;
+        //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
+        FOR_E_button.forEach( array => {array.value = "";});
+
+//------------------------ 
+        counterSEND = 3.3;
 
 }
 
