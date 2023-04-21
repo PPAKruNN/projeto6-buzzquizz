@@ -159,10 +159,10 @@ body {
 
 .text_quizz {
     z-index: 3;
+    left: 0;
     bottom: 0;
     margin: 0px 18px 7px 18px;
     position: absolute;
-    text-align: center;
     word-break: break-word;
     font-style: normal;
     font-weight: 400;
@@ -286,7 +286,7 @@ body {
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: transparent;
     color: #818181;
 }
 /*---------------------------------------*/
@@ -348,13 +348,13 @@ body {
     font-size: 21px;
     line-height: 25px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0);
     background-color: #EC362D;
     border-radius: 15px;
     border: none;
     padding: 18px;
     margin-top: 85px;
     margin-bottom: 30px;
+    color: #FFF5F4;
 }
 .botão-voltar-page-3{
     font-family: 'Roboto';
@@ -420,10 +420,10 @@ body {
 }
 .your-text_quizz {
     z-index: 3;
+    left: 0;
     bottom: 0;
     margin: 0px 23px 9px 23px;
     position: absolute;
-    text-align: center;
     word-break: break-word;
     font-style: normal;
     font-weight: 400;
