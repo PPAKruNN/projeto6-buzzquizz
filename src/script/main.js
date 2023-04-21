@@ -22,6 +22,7 @@ async function play_quizz(quizz_id) {
 
     document.getElementById('page_1').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
+    document.getElementById('page_3.4').classList.add('hide');
 
     const res = await getQuizInfo(quizz_id);
 
@@ -38,6 +39,8 @@ function voltarParaHome()
     eraseQuiz();
     runtime_data.currentQuizId = undefined;
     runtime_data.currentQuizAnswers = [];
+
+    buscarQuizzes();
 }
 
 function getQuizInfo(quizz_id)
@@ -179,6 +182,14 @@ function buscarQuizzes(){
     })
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function home_after_create() {
+
+    document.getElementById('page_1').classList.remove('hide');
+    document.getElementById('page_3.4').classList.add('hide');
+
+    buscarQuizzes();
+}
+//------------------------------------------------------------------------------
 let answer_counter = 0; //para contar se tem alguma pergunta não criada
 /*função chamada quando o usuario clica na caixa de pergunta na pagina de criação de perguntas,
 serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
@@ -231,7 +242,7 @@ function toggle_level(clicked) {
 //------------------------------------------------------------------------------
 let created_quizz = {};
 //--------------------------------------
-let ARR_3_1, ARR_3_2, N, P, ARR_3_3, counterSEND;
+let ARR_3_1, ARR_3_2, N, P, U, T, ARR_3_3, counterSEND;
 /*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
@@ -259,19 +270,44 @@ function send() {
         send_3_1();
 
     } else if (counterSEND === 3.2) {
+
         //vai entrar somente caso todas as perguntas tenham sido clicadas: função toggle_answer(clicked)
         if (answer_counter === P-1) {
             send_3_2();
         } else {
             alert('É necessário criar todas as suas perguntas');
         }
+
     } else if (counterSEND === 3.3) {
+
         //vai entrar somente caso todas os níveis tenham sido clicados: função toggle_level(clicked)
         if (level_counter === N-1) {
             send_3_3();
         } else {
             alert('É necessário criar todos os seus níveis');
         }
+
+    } else if (counterSEND === 3.4) {
+
+        const await_promise = axios.post(endpoints.quizzes, created_quizz);
+        await_promise.catch(error => {alert(`Ocorreu algum erro, perdão, tente novamente mais tarde\n\n${error.message}`);});
+        await_promise.then( sucess => {
+
+            document.getElementById('page_3.4_loading').classList.add('hide');
+            document.getElementById('page_3.4').classList.remove('hide');
+
+            //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
+            runtime_data.currentQuizId = sucess.data.id
+
+            your_quizz = document.querySelector('.quizz-finalizado');
+            your_quizz.innerHTML = `
+                <div class="your-container-quizz pointer" onclick="play_quizz()">
+                    <div class="your-quizz-transparency"></div>
+                    <img class="your-quizz-img"src="${U}"/>
+                    <p class="your-text_quizz">${T}</p>  
+                </div>
+            `;
+        });
     }
 }
 //------------------------
@@ -336,14 +372,14 @@ function send_3_1() {
         QTD_N_quizz: FOR_E_button[3].value
     }];
 
-    const T = ARR_3_1[0].T_quizz; 
-    const U = ARR_3_1[0].URL_quizz;
+    T = ARR_3_1[0].T_quizz; 
+    U = ARR_3_1[0].URL_quizz;
     P = parseInt(ARR_3_1[0].QTD_P_quizz);
     N = parseInt(ARR_3_1[0].QTD_N_quizz);
 
-    /* if (T.length < 20 || T.length > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
+    if (T.length < 20 || T.length > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
         alert('O título do Quizz deve ter entre 20 e 65 caracteres\nA URL deve ser válida\nA quantidade de perguntas deve ser maior que 2\nA quantidade de níveis deve ser maior que 1');
-    } else { */
+    } else {
             
         //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
         FOR_E_button.forEach( array => {array.value = "";});
@@ -370,7 +406,7 @@ function send_3_1() {
             `;
             
         }
-    /* } */
+    }
 //-----------------
     created_quizz =
 
@@ -538,7 +574,12 @@ function send_3_3 () {
         FOR_E_button.forEach( array => {array.value = "";});
     //------------------------ 
     
-        counterSEND = 3.4; 
+        counterSEND = 3.4;
+
+        document.getElementById('page_3.3').classList.add('hide');
+        document.getElementById('page_3.4_loading').classList.remove('hide');
+
+        send();
 
     } else {
 

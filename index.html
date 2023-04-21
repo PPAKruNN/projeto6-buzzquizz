@@ -143,19 +143,20 @@
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
         <button disabled class="botão-page-3">Finalizar Quizz</button>
+    </div>
+    <!--layout loading (fica COM a classe hide por padrão)-->    
+    <div id="page_3.4_loading" class="full_page loading_margin hide">
+        <img class="loading" src="./src/img/loading.gif"/>
+        <p class="text_loading">Carregando...</p>
+    </div>
     <!--layout TELA 3.4 (fica COM a classe hide por padrão)-->
     <div id="page_3.4" class="full_page hide">
         <p class="titulo-page-3">Seu quiz está pronto!</p>
-        <div class="quizz-finalizado" 
-            style="
-                background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url(https://e-tinet.com/wp-content/uploads/2017/02/MELHORES-DISTRIBUICOES-LINUX-RODAR-SERVIDORES-1024x536.png); 
-                background-position: center center; 
-                background-size: cover;
-            ">
-            <p>Teste</p>
+        <div class="quizz-finalizado">
+            <!--SERÁ RENDERIZADO PELO JS-->
         </div>
-        <button disabled class="botão-page-3">Acessar Quizz</button>
-        <button class="botão-voltar-page-3">Voltar para home</button>
+        <button class="botão-page-3 pointer" onclick="play_quizz()" >Acessar Quizz</button>
+        <button class="botão-voltar-page-3 pointer" onclick="home_after_create()" >Voltar para home</button>
     </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
