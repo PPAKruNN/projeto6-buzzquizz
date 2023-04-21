@@ -250,6 +250,18 @@ body {
     background-color: #FFFFFF;
 }
 
+.correctAnswer  {
+    color: #009C22 !important;
+}
+
+.wrongAnswer {
+    color: #FF4B4B !important;
+}
+
+.reduceOptionOpacity {
+    opacity: 0.40;
+}
+
 .text_options {
     margin-top: 8px;
     font-style: normal;

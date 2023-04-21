@@ -16,16 +16,19 @@ async function play_quizz(quizz_id) {
 
     if(!quizz_id)
     {
-        quizz_id = 10; // no momento estou usando assim só pra conseguir desenvolver o básico.
+        quizz_id = 59; // no momento estou usando assim só pra conseguir desenvolver o básico.
+        // {pokemon: 59, pele: 65}
+        
     }
-
     runtime_data.currentQuizId = quizz_id 
-
+    
     document.getElementById('page_1').classList.add('hide');
+    document.getElementById('page_3.4').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
     document.getElementById('page_3.4').classList.add('hide');
-
+    
     const res = await getQuizInfo(quizz_id);
+    console.log(res.data);
 
     updateQuizInfo(res.data);
     
@@ -34,6 +37,7 @@ async function play_quizz(quizz_id) {
 function voltarParaHome() 
 {
     document.getElementById('page_2').classList.add('hide');
+    document.getElementById('page_3.4').classList.add('hide');
     document.getElementById('page_1').classList.remove('hide');
 
     eraseQuiz();
@@ -126,12 +130,43 @@ function redefineQuizz() {
 function selectOption(el) {
     const questionbox = el.parentElement.parentElement.parentElement;
     let questionId =  questionbox.dataset.id
+    let selectedText = el.innerText;
 
-    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[questionId];
+    let isCorrectAnswer = selectedText == runtime_data.currentQuizAnswers[questionId];
+
     console.log("A resposta está correta?:" + isCorrectAnswer);
+
+    questionVisualEmphasis(selectedText, questionId)
 }
 
 
+
+function evaluateQuestion(isCorrect, questionId) {
+    
+}
+
+function questionVisualEmphasis(selectedOptionText, questionId)
+{
+    questionOptions = document.querySelectorAll(`[data-id="${questionId}"] .options`);
+
+    questionOptions.forEach( (option) => {
+        if(option.innerText == runtime_data.currentQuizAnswers[questionId])
+        {
+            option.children[1].classList.add("correctAnswer")
+        } else {
+            option.children[1].classList.add("wrongAnswer")
+        }
+
+        if( !(selectedOptionText == option.innerText) )
+        {
+            option.classList.add("reduceOptionOpacity")
+        }
+
+        // remove on click
+        option.onclick = "";
+    });
+
+}
 
 
 function shuffleArray(array) {
