@@ -73,6 +73,8 @@ function renderQuizQuestion(questionData, INTERN_ID) {
     let options_tags = "";
     let correctAnswer;    
     
+    // FALTA ADICIONAR COR PERSONALIZADA DE ACORDO COM O JSON PARA CADA QUESTAO.
+
     shuffleArray(questionData.answers);
 
     questionData.answers.forEach( (answer) => {
@@ -88,17 +90,17 @@ function renderQuizQuestion(questionData, INTERN_ID) {
 
     document.querySelector(".questions-container").innerHTML += `
     <div class="question_box" data-id="${INTERN_ID}">
-    <div class="content-question_box">
+        <div class="content-question_box">
+            
+            <div class="question" style="background-color: ${questionData.color}">
+                <p class="text_question">${questionData.title}</p>
+            </div>
     
-    <div class="question">
-    <p class="text_question">${questionData.title}</p>
-    </div>
-    
-    <div class="images_box">
-    ${options_tags}
-    </div>
+            <div class="images_box">
+                ${options_tags}
+            </div>
         </div>
-        </div>
+    </div>
     `
     
     return {
@@ -120,9 +122,9 @@ function redefineQuizz() {
 
 function selectOption(el) {
     const questionbox = el.parentElement.parentElement.parentElement;
-    let id =  questionbox.dataset.id
+    let questionId =  questionbox.dataset.id
 
-    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[id];
+    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[questionId];
     console.log("A resposta está correta?:" + isCorrectAnswer);
 }
 
