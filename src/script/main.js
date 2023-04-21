@@ -7,7 +7,7 @@ const endpoints =
 
 let runtime_data = {
     currentQuizId: undefined,
-    currentQuizAnswers: [],
+    currentQuizAnswers: []
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ async function play_quizz(quizz_id) {
     updateQuizInfo(res.data);
     
 }
-//---------------------------------------------------------------------------
+
 function voltarParaHome() 
 {
     document.getElementById('page_2').classList.add('hide');
@@ -155,7 +155,7 @@ function shuffleArray(array) {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
 function buscarQuizzesDoUsuario(){
-    let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("listaDeBuzzQuizzesDoUsuario");
+    let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
     let listaDeQuizzesDoUsuarioSalvas = JSON.parse(listaDeQuizzesDoUsuarioSalvass); //Uma array com todos os objetos com os ids
     if (listaDeQuizzesDoUsuarioSalvas === null){
         const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
@@ -170,17 +170,16 @@ function buscarQuizzesDoUsuario(){
     console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
 buscarQuizzesDoUsuario();
-//Minha ideia é essa função ser chamada depois de o quizz ter sido salvo no servidor e o parâmetro que vem é o id criado para esse quizz
+
 function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
     const objetoQuizz = {
             id: `${idQuizz}`
         }
     listaDeQuizzesDoUsuario.push(objetoQuizz);
     const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
-    localStorage.setItem("listaDeBuzzQuizzesDoUsuario", listaDeQuizzesDoUsuarioSerializada);
+    localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
-saveQuizzInLocalstorage(61);
-//localStorage.removeItem("listaDeBuzzQuizzesDoUsuario");
+//localStorage.removeItem("ids");
 
 function QuizzesDoUsuario(quizz){
     console.log(quizz.id);
@@ -367,8 +366,16 @@ function send() {
             document.getElementById('page_3.4_loading').classList.add('hide');
             document.getElementById('page_3.4').classList.remove('hide');
 
+            //faço um push do id do quizz que acabou de ser criado pra dentro da array da gisele
+            listaDeQuizzesDoUsuario.push(sucess.data.id);
+
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
-            runtime_data.currentQuizId = sucess.data.id
+            runtime_data.currentQuizId = sucess.data.id;
+
+            //o id atual é sendo usado como parametro na função da gisele
+            saveQuizzInLocalstorage(sucess.data.id);
+            //a função para mostrar os quizzes do usuario esta sendo chamada aqui também após criar o quizz
+            buscarQuizzesDoUsuario();
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
