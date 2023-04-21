@@ -23,29 +23,22 @@
     <div id="page_1" class="full_page">
 
         <!--layout caso: nenhum quizz local(fica SEM a classe hide por padrão)-->
-        <div class="create_quizz">
+        <div class="create_quizz hide">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
             <button onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
         </div>
         <!--layout caso: quizz locais criados(fica COM a classe hide por padrão)-->
-        <div class="container_column hide">
+        <div class="container_column">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
                 <ion-icon onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
             </div>
-            <div class="quizzes">
-                <div class="container-quizz pointer" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
-                <div class="container-quizz pointer" onclick="play_quizz()">
-                    <div class="quizz-transparency"></div>
-                    <img class="quizz-img"src="https://http.cat/411.jpg"/>
-                    <p class="text_quizz">Linux </p>  
-                </div>
+            <div class="your quizzes">
+                <!--SERÁ RENDERIZADO PELO JS-->
             </div>
         </div>
+        <!--layout de janela de confirmação de exclusão-->
+
         <!---->
         <div class="container_column">
             <p class="text_all_quizzes">Todos os Quizzes</p>

@@ -89,7 +89,10 @@ body {
     margin-left: 17px;
     margin-top: 64px;
 }
-
+.plus_quizz:hover{
+    font-size: 35px;
+    margin-top: 60px;
+}
 .text_all_quizzes {
     left: 0;
     margin: 69px 0px 12px 0px;
@@ -123,6 +126,27 @@ body {
     height: 181px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
     border-radius: 5px;
+}
+.edit-and-delet-quizz{
+    z-index: 3;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    top: 10px;
+    right: 0px;
+    width: 43px;
+    height: 87px;
+    background: #EC362D;
+    border-radius: 10px 0px 0px 11px;
+}
+.icones{
+    color: white;
+    font-size: 25px;
+}
+.icones:hover{
+    font-size: 30px;
 }
 .quizz-img{
     z-index: 1;
