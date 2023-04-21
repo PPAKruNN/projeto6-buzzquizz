@@ -286,7 +286,7 @@ body {
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
-    background-color: #FFF5F4;
+    background-color: rgba(255, 255, 255, 0);
     color: #818181;
 }
 /*---------------------------------------*/
@@ -348,7 +348,7 @@ body {
     font-size: 21px;
     line-height: 25px;
     text-align: center;
-    color: #FFF5F4;
+    background-color: rgba(255, 255, 255, 0);
     background-color: #EC362D;
     border-radius: 15px;
     border: none;
