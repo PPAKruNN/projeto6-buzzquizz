@@ -2,7 +2,7 @@ axios.defaults.headers.common['Authorization'] = 'H6IMSun7qTOTnM3FBe41wxJh';
 
 const endpoints = 
 {
-    "quizzes": "https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes",
+    "quizzes": 'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes',
 }
 
 let runtime_data = {
@@ -76,6 +76,8 @@ function renderQuizQuestion(questionData, INTERN_ID) {
     let options_tags = "";
     let correctAnswer;    
     
+    // FALTA ADICIONAR COR PERSONALIZADA DE ACORDO COM O JSON PARA CADA QUESTAO.
+
     shuffleArray(questionData.answers);
 
     questionData.answers.forEach( (answer) => {
@@ -91,17 +93,17 @@ function renderQuizQuestion(questionData, INTERN_ID) {
 
     document.querySelector(".questions-container").innerHTML += `
     <div class="question_box" data-id="${INTERN_ID}">
-    <div class="content-question_box">
+        <div class="content-question_box">
+            
+            <div class="question" style="background-color: ${questionData.color}">
+                <p class="text_question">${questionData.title}</p>
+            </div>
     
-    <div class="question">
-    <p class="text_question">${questionData.title}</p>
-    </div>
-    
-    <div class="images_box">
-    ${options_tags}
-    </div>
+            <div class="images_box">
+                ${options_tags}
+            </div>
         </div>
-        </div>
+    </div>
     `
     
     return {
@@ -123,9 +125,9 @@ function redefineQuizz() {
 
 function selectOption(el) {
     const questionbox = el.parentElement.parentElement.parentElement;
-    let id =  questionbox.dataset.id
+    let questionId =  questionbox.dataset.id
 
-    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[id];
+    let isCorrectAnswer = el.innerText == runtime_data.currentQuizAnswers[questionId];
     console.log("A resposta está correta?:" + isCorrectAnswer);
 }
 
@@ -151,36 +153,105 @@ function shuffleArray(array) {
 } 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let listaDeQuizzesDoUsuario = [];
+function buscarQuizzesDoUsuario(){
+    let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("listaDeBuzzQuizzesDoUsuario");
+    let listaDeQuizzesDoUsuarioSalvas = JSON.parse(listaDeQuizzesDoUsuarioSalvass); //Uma array com todos os objetos com os ids
+    if (listaDeQuizzesDoUsuarioSalvas === null){
+        const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
+        containerDosQuizzesDoUsuario.classList.add('hide');
+        const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
+        containerDeCriacaoDequizz.classList.remove('hide');
+    }else{
+        for(i=0; i<listaDeQuizzesDoUsuarioSalvas.length; i++){
+            listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
+        }
+    }
+    console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
+}
+buscarQuizzesDoUsuario();
+//Minha ideia é essa função ser chamada depois de o quizz ter sido salvo no servidor e o parâmetro que vem é o id criado para esse quizz
+function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
+    const objetoQuizz = {
+            id: `${idQuizz}`
+        }
+    listaDeQuizzesDoUsuario.push(objetoQuizz);
+    const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
+    localStorage.setItem("listaDeBuzzQuizzesDoUsuario", listaDeQuizzesDoUsuarioSerializada);
+}
+saveQuizzInLocalstorage(61);
+//localStorage.removeItem("listaDeBuzzQuizzesDoUsuario");
 
-buscarQuizzes();
-setInterval(buscarQuizzes, 5000);
+function QuizzesDoUsuario(quizz){
+    console.log(quizz.id);
+    for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
+        console.log(listaDeQuizzesDoUsuario[i].id)
+        if (quizz.id == listaDeQuizzesDoUsuario[i].id){
+            return true;
+        }
+    }
+}
+function QuizzesQueNaoSaoDoUsuario(quizz){
+    if (listaDeQuizzesDoUsuario.length === 0){
+        return true;
+    }else{
+        for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
+            console.log(listaDeQuizzesDoUsuario[i].id)
+            if (quizz.id !== listaDeQuizzesDoUsuario[i].id){
+                return true;
+            }
+        }
+    }
+}
+
+//Para renderizar os quizzes do usuraio analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
+function renderizarUserQuizzes(listaDeQuizzes){
+    const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
+    console.log(listaDeQuizzesfiltradasParaOUsuario);
+    const userQuizzesContainer = document.querySelector('.your.quizzes');
+    userQuizzesContainer.innerHTML = '';
+    for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
+        userQuizzesContainer.innerHTML += `
+            <div class="container-quizz pointer" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz()">
+                <div class="quizz-transparency"></div>
+                <img class="quizz-img"src="${listaDeQuizzesfiltradasParaOUsuario[i].image}"/>
+                <div class="edit-and-delet-quizz">
+                        <ion-icon class="icones" name="create-outline"></ion-icon>
+                        <ion-icon class="icones" name="trash-outline"></ion-icon>
+                </div>
+                <p class="text_quizz">${listaDeQuizzesfiltradasParaOUsuario[i].title}</p>  
+            </div>`
+    }
+}
+
 function renderizarQuizzes(listaDeQuizzes){
+    console.log(listaDeQuizzes);
+    const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
+    console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
-
-    // Comentando a linha para desocupar o console.log();
-    // console.log(quizzesContainer);
     quizzesContainer.innerHTML = '';
-    for(let i = 0; i < listaDeQuizzes.length; i++){
+    for(let i = 0; i < listaDeQuizzesGeral.length; i++){
         quizzesContainer.innerHTML += `
-        <div class="container-quizz pointer" onclick="play_quizz()">
+        <div class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz()">
             <div class="quizz-transparency"></div>
-            <img class="quizz-img"src="${listaDeQuizzes[i].image}"/>
-            <p class="text_quizz">${listaDeQuizzes[i].title}</p>  
+            <img class="quizz-img"src="${listaDeQuizzesGeral[i].image}"/>
+            <p class="text_quizz">${listaDeQuizzesGeral[i].title}</p>  
         </div>`
     }
 }
 
 function buscarQuizzes(){
-    const promiseQuizzes = axios.get('https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes');
-    promiseQuizzes.then(quizzesBuscados => {
-        // Comentando a linha para desocupar o console.log();
-        //console.log(quizzesBuscados.data);
+    const promiseQuizzes = axios.get(endpoints.quizzes);
+    promiseQuizzes.then((quizzesBuscados) => {
         renderizarQuizzes(quizzesBuscados.data);
+        renderizarUserQuizzes(quizzesBuscados.data);
     })
-    promiseQuizzes.catch(erroNaBUscaDosQuizzes => {
+    promiseQuizzes.catch(erroNaBuscaDosQuizzes => {
         console.log('Não foi possível conectar com o servidor');
     })
 }
+buscarQuizzes();
+setInterval(buscarQuizzes, 5000);
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function home_after_create() {
 
