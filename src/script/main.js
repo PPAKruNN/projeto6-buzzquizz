@@ -220,7 +220,6 @@ function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando cli
 //localStorage.removeItem("ids");
 
 function QuizzesDoUsuario(quizz){
-    /* console.log(quizz.id); */
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
         //console.log(listaDeQuizzesDoUsuario[i].id)
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
@@ -241,7 +240,6 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
     }
 }
 
-//Para renderizar os quizzes do usuario analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
 function renderizarUserQuizzes(listaDeQuizzes){
     const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
     console.log(listaDeQuizzesfiltradasParaOUsuario);
@@ -262,7 +260,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
 }
 
 function renderizarQuizzes(listaDeQuizzes){
-    /* console.log(listaDeQuizzes); */
+    //console.log(listaDeQuizzes);
     const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
     console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
