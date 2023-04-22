@@ -251,15 +251,14 @@ function shuffleArray(array) {
 //GISELE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
-let quizzesGerais = [];
+let listaDeQuizzesfiltradasParaOUsuario = '';
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
     let listaDeQuizzesDoUsuarioSalvas = JSON.parse(listaDeQuizzesDoUsuarioSalvass); //Uma array com todos os objetos com os ids
+    console.log(listaDeQuizzesDoUsuarioSalvas);
+    //console.log(userQuizzes);
     if (listaDeQuizzesDoUsuarioSalvas === null){
-        const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
-        containerDosQuizzesDoUsuario.classList.add('hide');
-        const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
-        containerDeCriacaoDequizz.classList.remove('hide');
+        listaDeQuizzesDoUsuario = [];
     }else{
         for(i=0; i<listaDeQuizzesDoUsuarioSalvas.length; i++){
             listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
@@ -267,7 +266,7 @@ function buscarQuizzesDoUsuario(){
     }
     //console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
-buscarQuizzesDoUsuario();
+
 
 function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
     const objetoQuizz = {
@@ -277,7 +276,8 @@ function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando cli
     const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
     localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
-//saveQuizzInLocalstorage(225);
+
+//saveQuizzInLocalstorage(203);
 //localStorage.removeItem("ids");
 
 function quizzesDoUsuario(quizz){
@@ -293,31 +293,30 @@ function quizzesQueNaoSaoDoUsuario(quizz){
         return true;
     }else{
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-        console.log(i);
-        console.log(quizz.id);
-        console.log(listaDeQuizzesDoUsuario[i].id);
-        
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
-            console.log('retornou false');
             resposta += 0;
         }else{
-            console.log('retornou true');
             resposta += 1;
         }
     }
     }
     if(resposta === listaDeQuizzesDoUsuario.length){
-        console.log('Não é um quizz do usuário');
         return true;
     }else{
-        console.log('É um quiz do usuário');
         return false;
     }
 }
 
 function renderizarUserQuizzes(listaDeQuizzes){
-    const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
+    listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
+    console.log(listaDeQuizzesDoUsuario);
     console.log(listaDeQuizzesfiltradasParaOUsuario);
+    if(listaDeQuizzesfiltradasParaOUsuario.length === 0){
+        const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
+        containerDosQuizzesDoUsuario.classList.add('hide');
+        const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
+        containerDeCriacaoDequizz.classList.remove('hide');
+    }
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
@@ -354,13 +353,15 @@ function buscarQuizzes(){
     promiseQuizzes.then(quizzesBuscados => {
         renderizarUserQuizzes(quizzesBuscados.data);
         renderizarQuizzes(quizzesBuscados.data);
+        console.log(quizzesBuscados.data);
     })
     promiseQuizzes.catch(erroNaBuscaDosQuizzes => {
         console.log('Não foi possível conectar com o servidor');
     })
 }
 buscarQuizzes();
-//setInterval(buscarQuizzes, 5000);
+buscarQuizzesDoUsuario();
+setInterval(buscarQuizzes, 5000);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //GABRIEL-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
