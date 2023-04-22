@@ -40,7 +40,7 @@ async function play_quizz(quizz_id) {
     document.getElementById('page_3.4').classList.add('hide');
     
     const res = await getQuizInfo(quizz_id);
-    console.log(res.data);
+    document.querySelector(".quizz_header").style.backgroundImage = `url("${res.data.image}")`;
 
     updateQuizInfo(res.data);
     
