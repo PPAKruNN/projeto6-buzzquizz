@@ -23,7 +23,6 @@ async function play_quizz(quizz_id) {
     runtime_data.currentQuizId = quizz_id 
     
     document.getElementById('page_1').classList.add('hide');
-    document.getElementById('page_3.4').classList.add('hide');
     document.getElementById('page_2').classList.remove('hide');
     document.getElementById('page_3.4').classList.add('hide');
     
@@ -37,7 +36,6 @@ async function play_quizz(quizz_id) {
 function voltarParaHome() 
 {
     document.getElementById('page_2').classList.add('hide');
-    document.getElementById('page_3.4').classList.add('hide');
     document.getElementById('page_1').classList.remove('hide');
 
     eraseQuiz();
