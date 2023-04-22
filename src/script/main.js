@@ -257,6 +257,7 @@ function shuffleArray(array) {
 //GISELE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
+let quizzesGerais = [];
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
     let listaDeQuizzesDoUsuarioSalvas = JSON.parse(listaDeQuizzesDoUsuarioSalvass); //Uma array com todos os objetos com os ids
@@ -270,44 +271,58 @@ function buscarQuizzesDoUsuario(){
             listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
         }
     }
-    /* console.log(listaDeQuizzesDoUsuario); */ //Uma array com todos os objetos com os ids
+    //console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
 buscarQuizzesDoUsuario();
 
 function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
     const objetoQuizz = {
-            id: `${idQuizz}`
+            id: Number(`${idQuizz}`)
         }
     listaDeQuizzesDoUsuario.push(objetoQuizz);
     const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
     localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
-//saveQuizzInLocalstorage(75);
+//saveQuizzInLocalstorage(225);
 //localStorage.removeItem("ids");
 
-function QuizzesDoUsuario(quizz){
+function quizzesDoUsuario(quizz){
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-        //console.log(listaDeQuizzesDoUsuario[i].id)
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
             return true;
         }
     }
 }
-function QuizzesQueNaoSaoDoUsuario(quizz){
-    if (listaDeQuizzesDoUsuario.length === 0){
+function quizzesQueNaoSaoDoUsuario(quizz){
+    let resposta = 0;
+    if (listaDeQuizzesDoUsuario.length == 0){
         return true;
     }else{
-        for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-            //console.log(listaDeQuizzesDoUsuario[i].id)
-            if (quizz.id != listaDeQuizzesDoUsuario[i].id){
-                return true;
-            }
+    for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
+        console.log(i);
+        console.log(quizz.id);
+        console.log(listaDeQuizzesDoUsuario[i].id);
+        
+        if (quizz.id == listaDeQuizzesDoUsuario[i].id){
+            console.log('retornou false');
+            resposta += 0;
+        }else{
+            console.log('retornou true');
+            resposta += 1;
         }
+    }
+    }
+    if(resposta === listaDeQuizzesDoUsuario.length){
+        console.log('Não é um quizz do usuário');
+        return true;
+    }else{
+        console.log('É um quiz do usuário');
+        return false;
     }
 }
 
 function renderizarUserQuizzes(listaDeQuizzes){
-    const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
+    const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
     console.log(listaDeQuizzesfiltradasParaOUsuario);
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
@@ -326,8 +341,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
 }
 
 function renderizarQuizzes(listaDeQuizzes){
-    //console.log(listaDeQuizzes);
-    const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
+    const listaDeQuizzesGeral = listaDeQuizzes.filter(quizzesQueNaoSaoDoUsuario);
     console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
@@ -343,16 +357,17 @@ function renderizarQuizzes(listaDeQuizzes){
 
 function buscarQuizzes(){
     const promiseQuizzes = axios.get(endpoints.quizzes);
-    promiseQuizzes.then((quizzesBuscados) => {
-        renderizarQuizzes(quizzesBuscados.data);
+    promiseQuizzes.then(quizzesBuscados => {
         renderizarUserQuizzes(quizzesBuscados.data);
+        renderizarQuizzes(quizzesBuscados.data);
     })
     promiseQuizzes.catch(erroNaBuscaDosQuizzes => {
         console.log('Não foi possível conectar com o servidor');
     })
 }
 buscarQuizzes();
-setInterval(buscarQuizzes, 5000);
+//setInterval(buscarQuizzes, 5000);
+
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //GABRIEL-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -477,9 +492,6 @@ function send() {
 
             document.getElementById('page_3.4_loading').classList.add('hide');
             document.getElementById('page_3.4').classList.remove('hide');
-
-            //faço um push do id do quizz que acabou de ser criado pra dentro da array da gisele
-            listaDeQuizzesDoUsuario.push(sucess.data.id);
 
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
             runtime_data.currentQuizId = sucess.data.id;
