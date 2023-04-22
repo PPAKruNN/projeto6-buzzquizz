@@ -9,10 +9,22 @@ const endpoints =
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let runtime_data = {
     currentQuizId: undefined,
-    currentQuizAnswers: []
+    currentQuizAnswers: [],
+    currentQuizLevels: [],
+    currentQuizProgress: {
+        totalQuestionsNumber: undefined,
+        answeredQuestions: undefined,
+        gotRightQuestions: undefined,
+    }
 }
 //-----------------------------------
 async function play_quizz(quizz_id) {
+
+    runtime_data.currentQuizId = undefined;
+    runtime_data.currentQuizAnswers = [];
+    runtime_data.currentQuizLevels = [];
+    runtime_data.currentQuizProgress.gotRightQuestions = 0;
+    runtime_data.currentQuizProgress.answeredQuestions = 0;
 
     if(!quizz_id)
     {
@@ -39,8 +51,6 @@ function voltarParaHome()
     document.getElementById('page_1').classList.remove('hide');
 
     eraseQuiz();
-    runtime_data.currentQuizId = undefined;
-    runtime_data.currentQuizAnswers = [];
 
     buscarQuizzes();
 }
@@ -63,6 +73,9 @@ function updateQuizInfo(data) {
     shuffleArray(data.questions);
     
     eraseQuiz();
+
+    runtime_data.currentQuizProgress.totalQuestionsNumber = data.questions.length;
+    runtime_data.currentQuizLevels = data.levels;
 
     for (let i = 0; i < data.questions.length; i++) {
         const question = data.questions[i];
@@ -134,13 +147,67 @@ function selectOption(el) {
 
     console.log("A resposta está correta?:" + isCorrectAnswer);
 
-    questionVisualEmphasis(selectedText, questionId)
+    questionVisualEmphasis(selectedText, questionId);
+    evaluateQuestion(isCorrectAnswer, questionId);
+
+    if(runtime_data.currentQuizProgress.answeredQuestions == runtime_data.currentQuizProgress.totalQuestionsNumber)
+    {
+        finishQuiz()
+    }
 }
 
+function finishQuiz()
+{
+    const rightPercentage = Math.round( 100 * runtime_data.currentQuizProgress.gotRightQuestions / runtime_data.currentQuizProgress.totalQuestionsNumber); 
+    for (let i = runtime_data.currentQuizLevels.length - 1; i >= 0; i--) {
+        const level = runtime_data.currentQuizLevels[i];
+        console.log(i);
+        console.log(rightPercentage, level.minValue)
+        
+        if(rightPercentage >= Number(level.minValue) )
+        {
+            // use o level.
 
+            document.querySelector(".questions-container").innerHTML += `
+            <div class="question_box RESULT_BOX" ">
+                <div class="content-question_box">
+                    
+                    <div class="question">
+                        <p class="text_question">${rightPercentage}% de acerto: ${level.title}</p>
+                    </div>
+            
+                    <div class="quizzResult">
+                        <img src="${level.image}">
+
+                        <p class="text-quiz-result">${level.text}</p>
+                    </div>
+                </div>
+            </div>
+            `
+
+            setTimeout( () => {
+                const el = document.querySelector(".RESULT_BOX");
+                el.scrollIntoView({behavior: "smooth", block: "center"})
+            }, 2000)
+
+            break;
+        }
+    }
+}
 
 function evaluateQuestion(isCorrect, questionId) {
+    if(isCorrect) runtime_data.currentQuizProgress.gotRightQuestions++;
     
+    runtime_data.currentQuizProgress.answeredQuestions++;
+    
+    setTimeout( () => {
+        const nextQuestion = document.querySelector(`[data-idd="${Number(questionId) + 1}"]`)
+        if(nextQuestion)
+        {
+            nextQuestion.scrollIntoView({behavior: "smooth", block: "center"});
+        }
+    }, 2000)
+
 }
 
 function questionVisualEmphasis(selectedOptionText, questionId)
