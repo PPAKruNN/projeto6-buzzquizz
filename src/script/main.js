@@ -4,14 +4,14 @@ const endpoints =
 {
     "quizzes": 'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes',
 }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//PEDRO-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let runtime_data = {
     currentQuizId: undefined,
     currentQuizAnswers: []
 }
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+//-----------------------------------
 async function play_quizz(quizz_id) {
 
     if(!quizz_id)
@@ -187,7 +187,9 @@ function shuffleArray(array) {
     return array;
 } 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//GISELE-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
@@ -202,7 +204,7 @@ function buscarQuizzesDoUsuario(){
             listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
         }
     }
-    console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
+    /* console.log(listaDeQuizzesDoUsuario); */ //Uma array com todos os objetos com os ids
 }
 buscarQuizzesDoUsuario();
 
@@ -217,9 +219,9 @@ function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando cli
 //localStorage.removeItem("ids");
 
 function QuizzesDoUsuario(quizz){
-    console.log(quizz.id);
+    /* console.log(quizz.id); */
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-        console.log(listaDeQuizzesDoUsuario[i].id)
+        /* console.log(listaDeQuizzesDoUsuario[i].id) */
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
             return true;
         }
@@ -230,7 +232,7 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
         return true;
     }else{
         for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-            console.log(listaDeQuizzesDoUsuario[i].id)
+            /* console.log(listaDeQuizzesDoUsuario[i].id) */
             if (quizz.id !== listaDeQuizzesDoUsuario[i].id){
                 return true;
             }
@@ -238,10 +240,10 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
     }
 }
 
-//Para renderizar os quizzes do usuraio analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
+//Para renderizar os quizzes do usuario analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
 function renderizarUserQuizzes(listaDeQuizzes){
     const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
-    console.log(listaDeQuizzesfiltradasParaOUsuario);
+    /* console.log(listaDeQuizzesfiltradasParaOUsuario); */
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
@@ -259,9 +261,9 @@ function renderizarUserQuizzes(listaDeQuizzes){
 }
 
 function renderizarQuizzes(listaDeQuizzes){
-    console.log(listaDeQuizzes);
+    /* console.log(listaDeQuizzes); */
     const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
-    console.log(listaDeQuizzesGeral);
+    /* console.log(listaDeQuizzesGeral); */
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
@@ -286,7 +288,20 @@ function buscarQuizzes(){
 }
 buscarQuizzes();
 setInterval(buscarQuizzes, 5000);
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//GABRIEL-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//função para verificar se o objeto é um url de imagem válido
+function isURL(obj) {
+    var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif|webp)$/i;
+    return pattern.test(obj);
+}
+//função para verificar se o objeto é uma cor hexadecimal valida
+function isHexColor(obj) {
+    var hexRegex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+    return hexRegex.test(obj);
+}
+//----------------------------------------------------------
 function home_after_create() {
 
     document.getElementById('page_1').classList.remove('hide');
@@ -294,7 +309,7 @@ function home_after_create() {
 
     buscarQuizzes();
 }
-//------------------------------------------------------------------------------
+//----------------------------------------------------------
 let answer_counter = 0; //para contar se tem alguma pergunta não criada
 /*função chamada quando o usuario clica na caixa de pergunta na pagina de criação de perguntas,
 serve para fazer ela "abrir" e ser substituida por uma div com novos inputs*/
@@ -344,30 +359,24 @@ function toggle_level(clicked) {
         </div>
     `;
 }
+
 //------------------------------------------------------------------------------
 let created_quizz = {};
 //--------------------------------------
-let ARR_3_1, ARR_3_2, N, P, U, T, ARR_3_3, counterSEND;
+const backup_html_3_2 = document.getElementById('page_3.2').innerHTML;
+const backup_html_3_3 = document.getElementById('page_3.3').innerHTML;
+//------
+//para guardarem a forma como as paginas 2 e 3 estavam antes de serem resetadas após o usuario terminar de criar o quizz
+let edit_html_3_2;
+let edit_html_3_3;
+//--------------------------------------
+let ARR_3_1, ARR_3_2, T, U, N, P, ARR_3_3, counterSEND;
 /*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
-let error_3_3;
-//------------------------------------------------------------------------------
-function create_quizz() {
-
-    counterSEND = 3.1;
-
-    //esconde a page 1 e mostra a page 3.1
-    document.getElementById('page_1').classList.add('hide');
-
-    //é aqui onde é definido qual página a função enable e ENABLE_button vão levar em consideração
-    element = document.getElementById('page_3.1');
-    element.classList.remove('hide');
-    //chama a função enable a cada 0,1 segundos
-    setInterval(enable, 100);
-
-}
-//------------------------------------------------------------------------------
+let error_3_2, error_3_3; //não há na da pagina 3.1 porque a quantidade de inputs é fixa, foi facil de implementar a verficação
+let stop_3_1, stop_3_3; //não há stop_3_2 pq na pagina 3.2 da pra continuar sem preencher tudo, então ná há setInterval nela
+//------------------------------------------------------------------------------------------------------------------------------
 //cada botão de cada página altera o valor do counterSEND, e essa função vai executar a função equivalente a ele
 function send() {
     if (counterSEND === 3.1) {
@@ -395,7 +404,10 @@ function send() {
     } else if (counterSEND === 3.4) {
 
         const await_promise = axios.post(endpoints.quizzes, created_quizz);
-        await_promise.catch(error => {alert(`Ocorreu algum erro, perdão, tente novamente mais tarde\n\n${error.message}`);});
+        await_promise.catch(error => {
+            alert(`Ocorreu algum erro, perdão, tente novamente.\n\n${error.message}`);
+            window.location.reload();
+        });
         await_promise.then( sucess => {
 
             document.getElementById('page_3.4_loading').classList.add('hide');
@@ -407,7 +419,7 @@ function send() {
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
             runtime_data.currentQuizId = sucess.data.id;
 
-            //o id atual é sendo usado como parametro na função da gisele
+            //o id atual será usado como parametro na função da gisele
             saveQuizzInLocalstorage(sucess.data.id);
             //a função para mostrar os quizzes do usuario esta sendo chamada aqui também após criar o quizz
             buscarQuizzesDoUsuario();
@@ -420,19 +432,14 @@ function send() {
                     <p class="your-text_quizz">${T}</p>  
                 </div>
             `;
+            
+            //reseta o conteudo das paginas 3.2 e 3.3 para o padrão, com somente uma pergunta e nivel
+            document.getElementById('page_3.2').innerHTML = backup_html_3_2;
+            document.getElementById('page_3.3').innerHTML = backup_html_3_3;
         });
     }
 }
-//------------------------
-/*precisei fazer a função ENABLE button ser chamada após essa nova porque usar setInterval 
-para chamar uma função inserindo um parametro faz ela ser executada somente uma vez*/
-
-/*chama a função ENABLE_button (usando o id do elemento da página ATUAL como parametro)*/
-function enable () {
-    ENABLE_button(element.id);
-}
-
-//------------------------
+//----------------------------------------------------------------------------------------
 let E_button, FOR_E_button;
 //----
 //verifica se todos os inputs da page (equivalente ao element.id) estão preenchidos, se sim libera o botão
@@ -464,19 +471,35 @@ function ENABLE_button(page) {
     }
 
 }
-//----------------------------------------------------------
-//função para verificar se o objeto é um url de imagem válido
-function isURL(obj) {
-    var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif)$/i;
-    return pattern.test(obj);
+
+//-------------------------------
+/*precisei fazer a função ENABLE button ser chamada após essa nova porque usar setInterval 
+para chamar uma função inserindo um parametro faz ela ser executada somente uma vez*/
+
+/*chama a função ENABLE_button (usando o id do elemento da página ATUAL como parametro)*/
+function enable () {
+    ENABLE_button(element.id);
 }
-//função para verificar se o objeto é uma cor hexadecimal valida
-function isHexColor(obj) {
-    var hexRegex = /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
-    return hexRegex.test(obj);
+
+//-----------------------------------------------------------
+function create_quizz() {
+
+    counterSEND = 3.1;
+
+    //esconde a page 1 e mostra a page 3.1
+    document.getElementById('page_1').classList.add('hide');
+
+    //é aqui onde é definido qual página a função enable e ENABLE_button vão levar em consideração
+    element = document.getElementById('page_3.1');
+    element.classList.remove('hide');
+    //chama a função enable a cada 0,1 segundos
+    stop_3_1 = setInterval(enable, 100);
+
 }
 //-----------------------------------------------------------
 function send_3_1() {
+
+    clearInterval(stop_3_1);
 
     ARR_3_1 = [{
         T_quizz: FOR_E_button[0].value, 
@@ -491,7 +514,7 @@ function send_3_1() {
     N = parseInt(ARR_3_1[0].QTD_N_quizz);
 
     if (T.length < 20 || T.length > 65 || isURL(U) === false || isNaN(P) !== false || isNaN(N) !== false || P < 3 || N < 2) {
-        alert('O título do Quizz deve ter entre 20 e 65 caracteres\nA URL deve ser válida\nA quantidade de perguntas deve ser maior que 2\nA quantidade de níveis deve ser maior que 1');
+        alert('Título do quizz: deve ter no mínimo 20 e no máximo 65 caracteres.\n\nURL da Imagem: deve ter formato de URL e extensão de imagem.\n\nQuantidade de perguntas: no mínimo 3 perguntas.\n\nQuantidade de níveis: no mínimo 2 níveis');
     } else {
             
         //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
@@ -501,11 +524,15 @@ function send_3_1() {
         counterSEND = 3.2;
 
         document.getElementById('page_3.1').classList.add('hide');
-        //element será redefinido para levar a page 3.2 em consideração com as funções enable e ENABLE_button
-        element = document.getElementById('page_3.2');
-        element.classList.remove('hide');
-        //chama a função enable a cada 0,1 segundos
-        setInterval(enable, 100);
+        const P_3_2 = document.getElementById('page_3.2');
+        P_3_2.classList.remove('hide');
+        //IMPORTANTE://
+        /*aqui o valor de element não muda, já que a função enable não sera usada para verificar 
+        se todos os inputs estão preenchdidos, já que na pagina 3.2 da pra continuar sem preencher tudo*/
+        const B_3_2 = P_3_2.querySelector('.botão-page-3');
+        B_3_2.disabled = false;
+        B_3_2.classList.add('pointer');
+        B_3_2.addEventListener('click', send);
     
         //renderiza na tela 3.2 divs com perguntas em numero equivalente ao escolhido pelo usuario
         let answer = document.getElementById('answers');
@@ -519,6 +546,7 @@ function send_3_1() {
             `;
             
         }
+        edit_html_3_2 = document.getElementById('page_3.2').innerHTML;
     }
 //-----------------
     created_quizz =
@@ -534,6 +562,8 @@ function send_3_1() {
 }
 //----------------------------------------------------------
 function send_3_2() {
+
+    //não há setInterval para a página 3.2
 
     ARR_3_2 = {obj_perguntas: []};
     let TEMP_array = [];
@@ -596,14 +626,38 @@ function send_3_2() {
                 ]
             }
         );
+        //-----------
+        if (right_P === "" || text_P.length < 20 || isHexColor(color_P) === false || isURL(right_P_img) === false) { 
+            error_3_2 = true;
+        }
+        //-----
+        if (wrong_P1 === "" && wrong_P2 === "" && wrong_P3 === ""){
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1_img !== "" && isURL(wrong_P1_img) === false) || (wrong_P2_img !== "" && isURL(wrong_P2_img) === false) || (wrong_P3_img !== "" && isURL(wrong_P3_img) === false)) {
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1 === "" && wrong_P1_img !== "") || (wrong_P2 === "" && wrong_P2_img !== "") || (wrong_P3 === "" && wrong_P3_img !== "")) {
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1_img === "" && wrong_P1 !== "") || (wrong_P2_img === "" && wrong_P2 !== "") || (wrong_P3_img === "" && wrong_P3 !== "")) {
+            error_3_2 = true;
+        }
     }
+//----------------------------
+    if (error_3_2 !== true) {
 
         //reseta o contador da função toggle_answer(clicked)
         answer_counter = 0;
-        //apaga os value digitados nos inputs equivalente a página selecionada pelas funções enable e ENABLE_button
-        FOR_E_button.forEach( array => {array.value = "";});
+        //apaga os value digitados nos inputs da página 3.2
+        let erase_inputs = document.getElementById('page_3.2');
+        erase_inputs = erase_inputs.querySelectorAll('.inputs-page-3');
+        erase_inputs.forEach( array => {array.value = "";});
 
-//------------------------ 
+    //------------------------
         counterSEND = 3.3;
 
         document.getElementById('page_3.2').classList.add('hide');
@@ -611,9 +665,9 @@ function send_3_2() {
         element = document.getElementById('page_3.3');
         element.classList.remove('hide');
         //chama a função enable a cada 0,1 segundos
-        setInterval(enable, 100);
+        stop_3_3 = setInterval(enable, 100);
 
-        //renderiza na tela 3.2 divs com perguntas em numero equivalente ao escolhido pelo usuario
+        //renderiza na tela 3.3 divs com niveis em numero equivalente ao escolhido pelo usuario
         const level = document.getElementById('levels');
         for (let i = 0; i < N-1; i++) {
             
@@ -624,9 +678,20 @@ function send_3_2() {
                 </div>
             `;
         }
+        edit_html_3_3  = document.getElementById('page_3.3').innerHTML;
+
+    } else {
+
+        alert('Texto da pergunta: no mínimo 20 caracteres.\n\nCor de fundo: deve ser uma cor em hexadecimal.\n\nTextos da resposta certa: não pode estar vazio.\n\nURL das imagens de resposta: deve ter formato de URL e extensão de imagem.\n\nNão dá pra inserir somente a imagem OU o nome nas respostas, precisa ser os dois');
+
+    }
+
+    error_3_2 = undefined;
 }
 //----------------------------------------------------------
 function send_3_3 () {
+
+    clearInterval(stop_3_3);
 
     ARR_3_3 = {obj_niveis: []};
     let TEMP_array = [];
@@ -663,7 +728,7 @@ function send_3_3 () {
                 minValue: min_N 
             }
         );
-
+        //-----------
         const some_zero = created_quizz.levels.some( obj => obj.minValue === 0);
 
         if (some_zero === false || text_N.length < 10 || min_N < 0 || min_N > 100 || isURL(url_N) === false || desc_N.length < 30) {
@@ -676,7 +741,7 @@ function send_3_3 () {
     
         }
     }
-    
+//----------------------------   
     if (error_3_3 === false) {
 
         console.log(created_quizz);
@@ -696,9 +761,11 @@ function send_3_3 () {
 
     } else {
 
-        alert('error');
+        alert('Título do nível: mínimo de 10 caracteres.\n\nURL da imagem do nível: deve ter formato de URL e extensão de imagem.\n\nDescrição do nível: mínimo de 30 caracteres.\n\nÉ obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%, e o valor precisa ser de 0 a 100.\n\n');
 
     }
+
+    error_3_3 = undefined;
 }
 
 
