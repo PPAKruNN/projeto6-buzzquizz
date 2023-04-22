@@ -374,6 +374,9 @@ body {
     line-height: 22px;
     color: #BABABA;
 }
+.simulate_text_area {
+    padding-top: 10px;
+}
 .input_margin{
     margin-bottom: 15px;
 }

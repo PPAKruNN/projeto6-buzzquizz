@@ -420,7 +420,7 @@ function toggle_level(clicked) {
             <input class="inputs-page-3" type="text" placeholder="Título do nível">
             <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
             <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
-            <input class="inputs-page-3" type="text" placeholder="Descrição do nível">
+            <textarea class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
         </div>
     `;
 }

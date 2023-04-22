@@ -59,6 +59,40 @@
         align-items: flex-start;
     }
     /*----------------*/
+    .simulate_text_area {
+        height: 177px;
+    }
+    .container-edits {
+        width: 375px;
+    }
+    .container-inputs {
+        width: 375px;
+    }
+    .inputs-page-3 {
+        width: 346px;
+    }
+    .quizz-finalizado{
+        width: 340px;
+        height: 181px;
+    }
+    .your-container-quizz{
+        width: 340px;
+        height: 181px;
+    }
+    .your-quizz-transparency{
+        width: 340px;
+        height: 181px;
+    }
+    .your-quizz-img{
+        width: 340px;
+        height: 181px;
+    }
+    .your-text_quizz {
+        margin: 0px 18px 7px 18px;
+        font-size: 19px;
+        line-height: 22px;
+    }
+    /*----------------*/
     .loading_margin {
         margin-top: 50%;
     }
