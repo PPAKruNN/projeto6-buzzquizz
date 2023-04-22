@@ -32,6 +32,7 @@ async function play_quizz(quizz_id) {
         // {pokemon: 59, pele: 65}
         
     }
+    console.log(quizz_id);
     runtime_data.currentQuizId = quizz_id 
     
     document.getElementById('page_1').classList.add('hide');
@@ -312,7 +313,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
         userQuizzesContainer.innerHTML += `
-            <div class="container-quizz pointer" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz()">
+            <div class="container-quizz pointer" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)">
                 <div class="quizz-transparency"></div>
                 <img class="quizz-img"src="${listaDeQuizzesfiltradasParaOUsuario[i].image}"/>
                 <div class="edit-and-delet-quizz">
@@ -332,7 +333,7 @@ function renderizarQuizzes(listaDeQuizzes){
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
         quizzesContainer.innerHTML += `
-        <div class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz()">
+        <div class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz(this.dataset.id)">
             <div class="quizz-transparency"></div>
             <img class="quizz-img"src="${listaDeQuizzesGeral[i].image}"/>
             <p class="text_quizz">${listaDeQuizzesGeral[i].title}</p>  
@@ -490,7 +491,7 @@ function send() {
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
-                <div class="your-container-quizz pointer" onclick="play_quizz()">
+                <div class="your-container-quizz pointer" onclick="play_quizz(this.dataset.id)">
                     <div class="your-quizz-transparency"></div>
                     <img class="your-quizz-img"src="${U}"/>
                     <p class="your-text_quizz">${T}</p>  
