@@ -26,12 +26,6 @@ async function play_quizz(quizz_id) {
     runtime_data.currentQuizProgress.gotRightQuestions = 0;
     runtime_data.currentQuizProgress.answeredQuestions = 0;
 
-    if(!quizz_id)
-    {
-        quizz_id = 59; // no momento estou usando assim só pra conseguir desenvolver o básico.
-        // {pokemon: 59, pele: 65}
-        
-    }
     console.log(quizz_id);
     runtime_data.currentQuizId = quizz_id 
     
@@ -435,7 +429,7 @@ function toggle_level(clicked) {
             <input class="inputs-page-3" type="text" placeholder="Título do nível">
             <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
             <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
-            <input class="inputs-page-3" type="text" placeholder="Descrição do nível">
+            <textarea class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
         </div>
     `;
 }
@@ -457,6 +451,10 @@ let element;
 let error_3_2, error_3_3; //não há na da pagina 3.1 porque a quantidade de inputs é fixa, foi facil de implementar a verficação
 let stop_3_1, stop_3_3; //não há stop_3_2 pq na pagina 3.2 da pra continuar sem preencher tudo, então ná há setInterval nela
 //------------------------------------------------------------------------------------------------------------------------------
+function MY_play_quizz() {
+    play_quizz(runtime_data.currentQuizId);
+}
+//------------------------------------------
 //cada botão de cada página altera o valor do counterSEND, e essa função vai executar a função equivalente a ele
 function send() {
     if (counterSEND === 3.1) {
@@ -503,7 +501,7 @@ function send() {
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
-                <div class="your-container-quizz pointer" onclick="play_quizz(this.dataset.id)">
+                <div class="your-container-quizz pointer" onclick="play_quizz(runtime_data.currentQuizId)">
                     <div class="your-quizz-transparency"></div>
                     <img class="your-quizz-img"src="${U}"/>
                     <p class="your-text_quizz">${T}</p>  
@@ -642,8 +640,9 @@ function send_3_2() {
 
     //não há setInterval para a página 3.2
 
-    ARR_3_2 = {obj_perguntas: []};
     let TEMP_array = [];
+
+    ARR_3_2 = {obj_perguntas: []};
 
     //a função toggle_answer(clicked) renderiza caixas de pergunta com ids que vão de 2 até o numero que o jogador escolher. A primeira por padrão tem o id 1
     for (let i = 1; i <= P; i++) {
@@ -673,37 +672,58 @@ function send_3_2() {
         let wrong_P2_img = ARR_3_2.obj_perguntas[i][7];
         let wrong_P3 = ARR_3_2.obj_perguntas[i][8];
         let wrong_P3_img = ARR_3_2.obj_perguntas[i][9];
-//-------------
+    //---------------
+        let rP = 
+            {
+                text: right_P,
+                image: right_P_img,
+                isCorrectAnswer: true
+            }
+            TEMP_array.push(rP);
+        //-----
+        let wP1 = 
+            {
+                text: wrong_P1,
+                image: wrong_P1_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P1 !== "") {
+            TEMP_array.push(wP1);
+        }
+        //-----
+        let wP2 = 
+            {
+                text: wrong_P2,
+                image: wrong_P2_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P2 !== "") {
+            TEMP_array.push(wP2);
+        }
+        //-----
+        let wP3 = 
+            {
+                text: wrong_P3,
+                image: wrong_P3_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P3 !== "") {
+            TEMP_array.push(wP3);
+        }
+        //---------------------------
         created_quizz.questions.push (
             {
                 title: text_P,
                 color: color_P,
-                answers: [
-                    {
-                        text: right_P,
-                        image: right_P_img,
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: wrong_P1,
-                        image: wrong_P1_img,
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: wrong_P2,
-                        image: wrong_P2_img,
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: wrong_P3,
-                        image: wrong_P3_img,
-                        isCorrectAnswer: false
-                    }
-
-                ]
+                answers: TEMP_array
             }
         );
-        //-----------
+
+        console.log(TEMP_array);
+        TEMP_array = [];
+
+    //-------------------------------
+
         if (right_P === "" || text_P.length < 20 || isHexColor(color_P) === false || isURL(right_P_img) === false) { 
             error_3_2 = true;
         }
@@ -724,7 +744,7 @@ function send_3_2() {
             error_3_2 = true;
         }
     }
-//----------------------------
+    //------------
     if (error_3_2 !== true) {
 
         //reseta o contador da função toggle_answer(clicked)
@@ -818,7 +838,7 @@ function send_3_3 () {
     
         }
     }
-//----------------------------   
+    //------------  
     if (error_3_3 === false) {
 
         console.log(created_quizz);
