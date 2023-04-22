@@ -230,12 +230,12 @@ function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando cli
     const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
     localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
+//saveQuizzInLocalstorage(75);
 //localStorage.removeItem("ids");
 
 function QuizzesDoUsuario(quizz){
-    //console.log(quizz.id);
     for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
-        console.log(listaDeQuizzesDoUsuario[i].id)
+        //console.log(listaDeQuizzesDoUsuario[i].id)
         if (quizz.id == listaDeQuizzesDoUsuario[i].id){
             return true;
         }
@@ -247,17 +247,16 @@ function QuizzesQueNaoSaoDoUsuario(quizz){
     }else{
         for(i=0; i<listaDeQuizzesDoUsuario.length; i++){
             //console.log(listaDeQuizzesDoUsuario[i].id)
-            if (quizz.id !== listaDeQuizzesDoUsuario[i].id){
+            if (quizz.id != listaDeQuizzesDoUsuario[i].id){
                 return true;
             }
         }
     }
 }
 
-//Para renderizar os quizzes do usuraio analisar os ids da listaDeQuizzes e os ids da listaDeQuizzesDoUsuario
 function renderizarUserQuizzes(listaDeQuizzes){
     const listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(QuizzesDoUsuario);
-    //console.log(listaDeQuizzesfiltradasParaOUsuario);
+    console.log(listaDeQuizzesfiltradasParaOUsuario);
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
@@ -277,7 +276,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
 function renderizarQuizzes(listaDeQuizzes){
     //console.log(listaDeQuizzes);
     const listaDeQuizzesGeral = listaDeQuizzes.filter(QuizzesQueNaoSaoDoUsuario);
-    //console.log(listaDeQuizzesGeral);
+    console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
