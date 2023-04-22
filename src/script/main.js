@@ -26,12 +26,6 @@ async function play_quizz(quizz_id) {
     runtime_data.currentQuizProgress.gotRightQuestions = 0;
     runtime_data.currentQuizProgress.answeredQuestions = 0;
 
-    if(!quizz_id)
-    {
-        quizz_id = 59; // no momento estou usando assim só pra conseguir desenvolver o básico.
-        // {pokemon: 59, pele: 65}
-        
-    }
     console.log(quizz_id);
     runtime_data.currentQuizId = quizz_id 
     
@@ -442,6 +436,10 @@ let element;
 let error_3_2, error_3_3; //não há na da pagina 3.1 porque a quantidade de inputs é fixa, foi facil de implementar a verficação
 let stop_3_1, stop_3_3; //não há stop_3_2 pq na pagina 3.2 da pra continuar sem preencher tudo, então ná há setInterval nela
 //------------------------------------------------------------------------------------------------------------------------------
+function MY_play_quizz() {
+    play_quizz(runtime_data.currentQuizId);
+}
+//------------------------------------------
 //cada botão de cada página altera o valor do counterSEND, e essa função vai executar a função equivalente a ele
 function send() {
     if (counterSEND === 3.1) {
@@ -478,9 +476,6 @@ function send() {
             document.getElementById('page_3.4_loading').classList.add('hide');
             document.getElementById('page_3.4').classList.remove('hide');
 
-            //faço um push do id do quizz que acabou de ser criado pra dentro da array da gisele
-            listaDeQuizzesDoUsuario.push(sucess.data.id);
-
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
             runtime_data.currentQuizId = sucess.data.id;
 
@@ -491,7 +486,7 @@ function send() {
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
-                <div class="your-container-quizz pointer" onclick="play_quizz(this.dataset.id)">
+                <div class="your-container-quizz pointer" onclick="play_quizz(runtime_data.currentQuizId)">
                     <div class="your-quizz-transparency"></div>
                     <img class="your-quizz-img"src="${U}"/>
                     <p class="your-text_quizz">${T}</p>  

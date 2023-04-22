@@ -286,6 +286,9 @@ body {
 }
 
 .text_options {
+    word-break: break-word;
+    overflow-y: scroll;
+    height: 22px;
     margin-top: 8px;
     font-style: normal;
     font-weight: 700;
