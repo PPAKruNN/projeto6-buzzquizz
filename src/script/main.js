@@ -630,8 +630,9 @@ function send_3_2() {
 
     //não há setInterval para a página 3.2
 
-    ARR_3_2 = {obj_perguntas: []};
     let TEMP_array = [];
+
+    ARR_3_2 = {obj_perguntas: []};
 
     //a função toggle_answer(clicked) renderiza caixas de pergunta com ids que vão de 2 até o numero que o jogador escolher. A primeira por padrão tem o id 1
     for (let i = 1; i <= P; i++) {
@@ -661,37 +662,58 @@ function send_3_2() {
         let wrong_P2_img = ARR_3_2.obj_perguntas[i][7];
         let wrong_P3 = ARR_3_2.obj_perguntas[i][8];
         let wrong_P3_img = ARR_3_2.obj_perguntas[i][9];
-//-------------
+    //---------------
+        let rP = 
+            {
+                text: right_P,
+                image: right_P_img,
+                isCorrectAnswer: true
+            }
+            TEMP_array.push(rP);
+        //-----
+        let wP1 = 
+            {
+                text: wrong_P1,
+                image: wrong_P1_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P1 !== "") {
+            TEMP_array.push(wP1);
+        }
+        //-----
+        let wP2 = 
+            {
+                text: wrong_P2,
+                image: wrong_P2_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P2 !== "") {
+            TEMP_array.push(wP2);
+        }
+        //-----
+        let wP3 = 
+            {
+                text: wrong_P3,
+                image: wrong_P3_img,
+                isCorrectAnswer: false
+            }
+        if (wrong_P3 !== "") {
+            TEMP_array.push(wP3);
+        }
+        //---------------------------
         created_quizz.questions.push (
             {
                 title: text_P,
                 color: color_P,
-                answers: [
-                    {
-                        text: right_P,
-                        image: right_P_img,
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: wrong_P1,
-                        image: wrong_P1_img,
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: wrong_P2,
-                        image: wrong_P2_img,
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: wrong_P3,
-                        image: wrong_P3_img,
-                        isCorrectAnswer: false
-                    }
-
-                ]
+                answers: TEMP_array
             }
         );
-        //-----------
+
+        console.log(TEMP_array);
+        TEMP_array = [];
+
+    //-------------------------------
+
         if (right_P === "" || text_P.length < 20 || isHexColor(color_P) === false || isURL(right_P_img) === false) { 
             error_3_2 = true;
         }
@@ -712,7 +734,7 @@ function send_3_2() {
             error_3_2 = true;
         }
     }
-//----------------------------
+    //------------
     if (error_3_2 !== true) {
 
         //reseta o contador da função toggle_answer(clicked)
@@ -806,7 +828,7 @@ function send_3_3 () {
     
         }
     }
-//----------------------------   
+    //------------  
     if (error_3_3 === false) {
 
         console.log(created_quizz);
