@@ -212,7 +212,6 @@ body {
     margin-top: 30%;
 }
 .confirmacao-de-exclusão p{
-    font-family: 'Roboto';
     font-size: 20px;
     margin-bottom: 20px;
     line-height: 23px;
@@ -221,7 +220,6 @@ body {
     cursor: pointer;
     border: none;
     background-color: white;
-    font-family: 'Roboto';
     color: #FF4B4B;
     font-size: 20px;
     margin-bottom: 10px;
@@ -232,7 +230,6 @@ body {
     cursor: pointer;
     border: none;
     background-color: transparent;
-    font-family: 'Roboto';
     color: #484848;
     font-size: 20px;
     border-radius: 5px;
@@ -391,7 +388,6 @@ body {
 }
 /*---------------------------------------*/
 .titulo-page-3{
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
@@ -412,7 +408,6 @@ body {
     margin-top: 27px;
 }
 .container-inputs p{
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -460,7 +455,6 @@ body {
     color: #FFF5F4;
 }
 .botão-voltar-page-3{
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 21px;
@@ -486,7 +480,6 @@ body {
     height: 23px;
 }
 .container-edits p{
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;

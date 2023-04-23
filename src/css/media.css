@@ -116,4 +116,26 @@
     .loading_margin {
         margin-top: 50%;
     }
+    /*----------------*/
+    .confirmacao-de-exclusão{
+        width: 200px;
+        margin-top: 70%;
+        padding: 10px;
+    }
+    .confirmacao-de-exclusão p{
+        line-height: 23px;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .confirmar-exclusao{
+        line-height: 23px;
+        font-size: 18px;
+        margin-bottom: 5px;
+        padding: 1.5px 7px 1.5px 7px;
+    }
+    .cancelar-exclusao{
+        line-height: 23px;
+        font-size: 18px;
+        padding: 1.5px 7px 1.5px 7px;
+    }
 }
