@@ -20,6 +20,8 @@ let runtime_data = {
 //-----------------------------------
 async function play_quizz(quizz_id) {
 
+    clearInterval(stop_buscarQuizzes);
+
     runtime_data.currentQuizId = undefined;
     runtime_data.currentQuizAnswers = [];
     runtime_data.currentQuizLevels = [];
@@ -29,8 +31,8 @@ async function play_quizz(quizz_id) {
     console.log(quizz_id);
     runtime_data.currentQuizId = quizz_id 
     
+    document.getElementById('page_reloading').classList.remove('hide');
     document.getElementById('page_1').classList.add('hide');
-    document.getElementById('page_2').classList.remove('hide');
     document.getElementById('page_3.4').classList.add('hide');
     
     const res = await getQuizInfo(quizz_id);
@@ -42,6 +44,8 @@ async function play_quizz(quizz_id) {
 
 function voltarParaHome() 
 {
+    stop_buscarQuizzes = setInterval(buscarQuizzes, 5000);
+
     document.getElementById('page_2').classList.add('hide');
     document.getElementById('page_1').classList.remove('hide');
 
@@ -54,6 +58,10 @@ function getQuizInfo(quizz_id)
 {
     const promisse = axios.get(endpoints.quizzes + "/" + quizz_id);
     promisse
+    promisse.then( () => {
+        document.getElementById('page_reloading').classList.add('hide');
+        document.getElementById('page_2').classList.remove('hide');
+    });
     promisse.catch( (error) => {
         console.error("UM ERRO OCORREU AO TENTAR BUSCAR INFORMAÇÕES NO SERVIDOR: " + error.data);
     });
@@ -394,14 +402,18 @@ function buscarQuizzes(){
         renderizarUserQuizzes(quizzesBuscados.data);
         renderizarQuizzes(quizzesBuscados.data);
         console.log(quizzesBuscados.data);
-    })
+
+        document.getElementById('page_reloading').classList.add('hide');
+        document.getElementById('page_1').classList.remove('hide');
+
+    });
     promiseQuizzes.catch(erroNaBuscaDosQuizzes => {
         console.log('Não foi possível conectar com o servidor');
-    })
+    });
 }
 buscarQuizzes();
 buscarQuizzesDoUsuario();
-setInterval(buscarQuizzes, 5000);
+let stop_buscarQuizzes = setInterval(buscarQuizzes, 5000);
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //GABRIEL-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -419,7 +431,9 @@ function isHexColor(obj) {
 //----------------------------------------------------------
 function home_after_create() {
 
-    document.getElementById('page_1').classList.remove('hide');
+    setInterval(buscarQuizzes, 5000);
+
+    document.getElementById('page_reloading').classList.remove('hide');
     document.getElementById('page_3.4').classList.add('hide');
 
     buscarQuizzes();
@@ -537,8 +551,6 @@ function send() {
 
             //o id atual será usado como parametro na função da gisele
             saveQuizzInLocalstorage(sucess.data.id, sucess.data.key);
-            //a função para mostrar os quizzes esta sendo chamada aqui também após criar o quizz
-            buscarQuizzes();
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
@@ -599,6 +611,8 @@ function enable () {
 
 //-----------------------------------------------------------
 function create_quizz() {
+
+    clearInterval(stop_buscarQuizzes);
 
     counterSEND = 3.1;
 
