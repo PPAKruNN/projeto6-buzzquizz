@@ -107,8 +107,8 @@ function renderQuizQuestion(questionData, INTERN_ID) {
         if(answer.isCorrectAnswer) correctAnswer = answer.text;
         
         options_tags += `
-        <div class="options" onclick="selectOption(this)">
-            <img src="${answer.image}"/>
+        <div class="options pointer_options" onclick="selectOption(this)">
+            <img class ="pointer_options_img" src="${answer.image}"/>
             <p class="text_options">${answer.text}</p>
         </div>
         `
