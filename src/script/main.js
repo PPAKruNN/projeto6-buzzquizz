@@ -525,7 +525,7 @@ function send() {
         });
         await_promise.then( sucess => {
 
-            document.getElementById('page_3.4_loading').classList.add('hide');
+            document.getElementById('page_reloading').classList.add('hide');
             document.getElementById('page_3.4').classList.remove('hide');
 
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
@@ -889,7 +889,7 @@ function send_3_3 () {
         counterSEND = 3.4;
 
         document.getElementById('page_3.3').classList.add('hide');
-        document.getElementById('page_3.4_loading').classList.remove('hide');
+        document.getElementById('page_reloading').classList.remove('hide');
 
         send();
 
