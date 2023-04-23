@@ -188,8 +188,9 @@ body {
     color: #FFFFFF;
 }
 .pop-up{
+    margin-top: -70px;
     z-index: 5;
-    height: 3848px;
+    height: 9999px;
     width: 100%;
     background: rgba(0, 0, 0, 0.5) 65.1%;
     position: absolute;
@@ -200,7 +201,7 @@ body {
 .confirmacao-de-exclusão{
     background-color: #BABABA;
     z-index: 5;
-    position: relative;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -208,7 +209,7 @@ body {
     padding: 20px;
     border-radius: 5px; 
     text-align: center;
-    margin-top: 7%;
+    margin-top: 30%;
 }
 .confirmacao-de-exclusão p{
     font-family: 'Roboto';
@@ -217,6 +218,7 @@ body {
     line-height: 23px;
 }
 .confirmar-exclusao{
+    cursor: pointer;
     border: none;
     background-color: white;
     font-family: 'Roboto';
@@ -227,6 +229,7 @@ body {
     padding: 3px 15px 3px 15px;
 }
 .cancelar-exclusao{
+    cursor: pointer;
     border: none;
     background-color: transparent;
     font-family: 'Roboto';
@@ -244,6 +247,8 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    background-position: center center; 
+    background-size: cover;
 }
 
 .quizz_title {
@@ -266,12 +271,11 @@ body {
     justify-content: center;
     margin-top: 42px;
     width: 759px;
-    height: 676px;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    padding-top: 40px;
+    padding-bottom: 44px;
 }
-
-
 
 .content_question_box {
     display: flex;
@@ -279,7 +283,6 @@ body {
     align-items: center;
     justify-content: center;
     width: 688px;
-    height: 632px;
 }
 
 .question {
@@ -289,11 +292,9 @@ body {
     margin: -10px 0px 20px 0px;
     width: 688px;
     height: 138px;
-    background-color: #434CA0;
 }
 
 .text_question {
-    font-family: 'Roboto'; /*Coloquei aqui porque pra mim não está aplicando no body todo como deveria*/
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
@@ -308,14 +309,12 @@ body {
     flex-wrap: wrap;
     gap: 18px 24px;
     width: 688px;
-    height: 450px;
 }
 
 .quizzResult {
     display: flex;
     gap: 18px 24px;
     width: 688px;
-    height: 450px;
 }
 
 .quizzResult > img {
@@ -351,7 +350,7 @@ body {
 .text_options {
     word-break: break-word;
     overflow-y: scroll;
-    height: 22px;
+    height: 34px;
     margin-top: 8px;
     font-style: normal;
     font-weight: 700;

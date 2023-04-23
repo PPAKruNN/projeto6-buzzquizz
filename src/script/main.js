@@ -103,7 +103,7 @@ function renderQuizQuestion(questionData, INTERN_ID) {
 
     document.querySelector(".questions-container").innerHTML += `
     <div class="question_box" data-id="${INTERN_ID}">
-        <div class="content-question_box">
+        <div class="content_question_box">
             
             <div class="question" style="background-color: ${questionData.color}">
                 <p class="text_question">${questionData.title}</p>
@@ -165,7 +165,7 @@ function finishQuiz()
 
             document.querySelector(".questions-container").innerHTML += `
             <div class="question_box RESULT_BOX" ">
-                <div class="content-question_box">
+                <div class="content_question_box">
                     
                     <div class="question">
                         <p class="text_question">${rightPercentage}% de acerto: ${level.title}</p>
