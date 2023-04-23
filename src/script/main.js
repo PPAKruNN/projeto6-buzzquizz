@@ -252,11 +252,25 @@ function shuffleArray(array) {
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
 let listaDeQuizzesfiltradasParaOUsuario = '';
+function excluirQuizz(idDoQuizzQueVaiSerExcluido){
+    const objQuizzSelecionado = listaDeQuizzesDoUsuario.filter(quizz =>{
+        if (quizz.id == idDoQuizzQueVaiSerExcluido){
+            return true;
+        }
+    })
+    console.log(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`);
+    console.log(`{headers: {'Secret-Key': ${objQuizzSelecionado[0].key}}}`)
+    const promiseDelete = axios.delete(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`, {headers: {'Secret-Key': `${objQuizzSelecionado[0].key}`}});
+    promiseDelete.then(respostaDelecao => {
+        console.log(respostaDelecao);
+    })
+    promiseDelete.catch(erroDelecao => {
+        console.log(erroDelecao);
+    })
+}
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
     let listaDeQuizzesDoUsuarioSalvas = JSON.parse(listaDeQuizzesDoUsuarioSalvass); //Uma array com todos os objetos com os ids
-    console.log(listaDeQuizzesDoUsuarioSalvas);
-    //console.log(userQuizzes);
     if (listaDeQuizzesDoUsuarioSalvas === null){
         listaDeQuizzesDoUsuario = [];
     }else{
@@ -264,20 +278,21 @@ function buscarQuizzesDoUsuario(){
             listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
         }
     }
-    //console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
+    console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
 
 
-function saveQuizzInLocalstorage(idQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
+function saveQuizzInLocalstorage(idQuizz, keyQuizz){//Essa função roda apenas quando clica no botão de finalizar quizz que roda outra função que chama essa
     const objetoQuizz = {
-            id: Number(`${idQuizz}`)
-        }
+            id: Number(`${idQuizz}`),
+            key: `${keyQuizz}`
+        };
     listaDeQuizzesDoUsuario.push(objetoQuizz);
     const listaDeQuizzesDoUsuarioSerializada = JSON.stringify(listaDeQuizzesDoUsuario);
     localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
 
-//saveQuizzInLocalstorage(203);
+//saveQuizzInLocalstorage(282, 'aaaaaaa');
 //localStorage.removeItem("ids");
 
 function quizzesDoUsuario(quizz){
@@ -309,7 +324,6 @@ function quizzesQueNaoSaoDoUsuario(quizz){
 
 function renderizarUserQuizzes(listaDeQuizzes){
     listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
-    console.log(listaDeQuizzesDoUsuario);
     console.log(listaDeQuizzesfiltradasParaOUsuario);
     if(listaDeQuizzesfiltradasParaOUsuario.length === 0){
         const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
@@ -321,12 +335,14 @@ function renderizarUserQuizzes(listaDeQuizzes){
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
         userQuizzesContainer.innerHTML += `
-            <div class="container-quizz pointer" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)">
+            <div class="container-quizz pointer">
                 <div class="quizz-transparency"></div>
                 <img class="quizz-img"src="${listaDeQuizzesfiltradasParaOUsuario[i].image}"/>
+                <div class="ativacao-do-quizz" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
+                <div class="ativacao-do-quizz-lateral" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
                 <div class="edit-and-delet-quizz">
                         <ion-icon class="icones" name="create-outline"></ion-icon>
-                        <ion-icon class="icones" name="trash-outline"></ion-icon>
+                        <ion-icon onclick = "excluirQuizz(${listaDeQuizzesfiltradasParaOUsuario[i].id})" class="icones" name="trash-outline"></ion-icon>
                 </div>
                 <p class="text_quizz">${listaDeQuizzesfiltradasParaOUsuario[i].title}</p>  
             </div>`
@@ -496,7 +512,7 @@ function send() {
             runtime_data.currentQuizId = sucess.data.id;
 
             //o id atual será usado como parametro na função da gisele
-            saveQuizzInLocalstorage(sucess.data.id);
+            saveQuizzInLocalstorage(sucess.data.id, sucess.data.key);
             //a função para mostrar os quizzes do usuario esta sendo chamada aqui também após criar o quizz
             buscarQuizzesDoUsuario();
 

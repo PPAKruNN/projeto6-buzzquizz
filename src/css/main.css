@@ -158,7 +158,22 @@ body {
     border-radius: 5px;
     margin: 0px;
 }
-
+.ativacao-do-quizz{
+    z-index: 4;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 297px;
+    height: 181px;
+}
+.ativacao-do-quizz-lateral{
+    z-index: 4;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 43px;
+    height: 84px;
+}
 .text_quizz {
     z-index: 3;
     left: 0;
