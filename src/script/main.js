@@ -262,18 +262,16 @@ function shuffleArray(array) {
 let listaDeQuizzesDoUsuario = [];
 let listaDeQuizzesfiltradasParaOUsuario = '';
 function excluirQuizz(){
-    const idpopUp = document.querySelector('.pop-up .id-do-quizz');
-    const idDoQuizzQueVaiSerExcluido = idpopUp.innerHTML;
-    console.log(idpopUp);
-    console.log(idpopUp.innerHTML);
-    const divPopUp = idpopUp.parentNode;
+    const idpopUp = document.querySelector('.pop-up');
+    const listaDeClasses = idpopUp.classList;
+    const idDoQuizzQueVaiSerExcluido = listaDeClasses[1];
     const objQuizzSelecionado = listaDeQuizzesDoUsuario.filter(quizz =>{
         if (quizz.id == idDoQuizzQueVaiSerExcluido){
-            return true;
+            return true; 
         }
     })
-    console.log(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`);
-    console.log(`{headers: {'Secret-Key': ${objQuizzSelecionado[0].key}}}`)
+    console.log(objQuizzSelecionado);
+    
     const promiseDelete = axios.delete(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`, {headers: {'Secret-Key': `${objQuizzSelecionado[0].key}`}});
     promiseDelete.then(respostaDelecao => {
         console.log(respostaDelecao);
@@ -281,11 +279,12 @@ function excluirQuizz(){
         document.getElementById('page_1').classList.add('hide');
         document.getElementById('page_reloading').classList.remove('hide');
         divPopUp.classList.add('hide');
-        buscarQuizzes();
-        buscarQuizzesDoUsuario();
+        divPopUp.classList.replace(`${idDoQuizzQueVaiSerExcluido}`, 'id');
+        window.location.reload();
     })
     promiseDelete.catch(erroDelecao => {
         console.log(erroDelecao);
+        console.log('DEu merda na hora de excluir!');
     })
 }
 function cancelarexclusao(){
@@ -293,11 +292,8 @@ function cancelarexclusao(){
 }
 function confirmarEnxclusao(idDoQuizz){
     const popUp = document.querySelector('.pop-up');
-    popUp.innerHTML += `<div class="id-do-quizz hide">${idDoQuizz}</div>`;
+    popUp.classList.replace('id', `${idDoQuizz}`);
     popUp.classList.remove('hide');
-    console.log(popUp);
-    console.log(popUp.innerHTML);
-    console.log(idDoQuizz);
 }
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
@@ -305,11 +301,9 @@ function buscarQuizzesDoUsuario(){
     if (listaDeQuizzesDoUsuarioSalvas === null){
         listaDeQuizzesDoUsuario = [];
     }else{
-        for(i=0; i<listaDeQuizzesDoUsuarioSalvas.length; i++){
-            listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
-        }
+        listaDeQuizzesDoUsuario = listaDeQuizzesDoUsuarioSalvas;
     }
-    console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
+    //console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
 
 
@@ -357,7 +351,6 @@ const containerDosQuizzesDoUsuario = document.querySelector('.container_column')
 const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
 function renderizarUserQuizzes(listaDeQuizzes){
     listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
-    console.log(listaDeQuizzesfiltradasParaOUsuario);
     if(listaDeQuizzesfiltradasParaOUsuario.length === 0){
         containerDosQuizzesDoUsuario.classList.add('hide');
         containerDeCriacaoDequizz.classList.remove('hide');
@@ -385,7 +378,6 @@ function renderizarUserQuizzes(listaDeQuizzes){
 
 function renderizarQuizzes(listaDeQuizzes){
     const listaDeQuizzesGeral = listaDeQuizzes.filter(quizzesQueNaoSaoDoUsuario);
-    console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
@@ -404,7 +396,7 @@ function buscarQuizzes(){
         renderizarUserQuizzes(quizzesBuscados.data);
         renderizarQuizzes(quizzesBuscados.data);
         console.log(quizzesBuscados.data);
-
+        buscarQuizzesDoUsuario();
         document.getElementById('page_reloading').classList.add('hide');
         document.getElementById('page_1').classList.remove('hide');
 

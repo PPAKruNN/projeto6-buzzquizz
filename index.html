@@ -19,7 +19,7 @@
 
     <header class="top_bar">BuzzQuizz</header>
     <!--layout de janela de confirmação de exclusão-->
-    <div class="pop-up hide">    
+    <div class="pop-up hide id">    
         <div class="confirmacao-de-exclusão">
             <p>Esse comando excluirá seu quizz permanentemente. Tem certeza que deseja continuar?</p>
             <button class="confirmar-exclusao" onclick="excluirQuizz()">Sim</button>
@@ -128,7 +128,7 @@
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
         <button class="botão-page-3 pointer" onclick="MY_play_quizz()" >Acessar Quizz</button>
-        <button class="botão-voltar-page-3 pointer" onclick="home_after_create()" onclick="buscarQuizzesDoUsuario()">Voltar para home</button>
+        <button class="botão-voltar-page-3 pointer" onclick="home_after_create(); buscarQuizzes()">Voltar para home</button>
     </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
