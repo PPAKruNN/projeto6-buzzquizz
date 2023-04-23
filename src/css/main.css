@@ -66,12 +66,15 @@ body {
     background-color: #FAFAFA;
     border: 1px dashed #EC362D;
     border-radius: 50px;
-
     font-style: normal;
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
     color: #EC362D;
+}
+.button_create_quizz:hover {
+    background-color:#EC362D;
+    color: #FAFAFA;
 }
 /*---------------------------------------*/
 .container_column {

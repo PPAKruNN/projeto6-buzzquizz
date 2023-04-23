@@ -4,6 +4,8 @@ const endpoints =
 {
     "quizzes": 'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes',
 }
+
+window.scrollTo(0, 0);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //PEDRO-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +54,8 @@ function voltarParaHome()
     eraseQuiz();
 
     buscarQuizzes();
+
+    window.scrollTo(0, 0);
 }
 
 function getQuizInfo(quizz_id)
@@ -439,6 +443,8 @@ function home_after_create() {
     document.getElementById('page_3.4').classList.add('hide');
 
     buscarQuizzes();
+
+    window.scrollTo(0, 0);
 }
 //----------------------------------------------------------
 let answer_counter = 0; //para contar se tem alguma pergunta não criada
