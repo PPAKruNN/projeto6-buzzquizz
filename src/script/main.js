@@ -287,6 +287,8 @@ function excluirQuizz(){
         divPopUp.classList.add('hide');
         buscarQuizzes();
         buscarQuizzesDoUsuario();
+
+        window.scrollTo(0, 0);
     })
     promiseDelete.catch(erroDelecao => {
         console.log(erroDelecao);
