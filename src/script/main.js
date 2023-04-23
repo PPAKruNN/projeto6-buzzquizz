@@ -53,6 +53,7 @@ function voltarParaHome()
 function getQuizInfo(quizz_id)
 {
     const promisse = axios.get(endpoints.quizzes + "/" + quizz_id);
+    promisse
     promisse.catch( (error) => {
         console.error("UM ERRO OCORREU AO TENTAR BUSCAR INFORMAÇÕES NO SERVIDOR: " + error.data);
     });
@@ -342,14 +343,17 @@ function quizzesQueNaoSaoDoUsuario(quizz){
     }
 }
 
+const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
+const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
 function renderizarUserQuizzes(listaDeQuizzes){
     listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
     console.log(listaDeQuizzesfiltradasParaOUsuario);
     if(listaDeQuizzesfiltradasParaOUsuario.length === 0){
-        const containerDosQuizzesDoUsuario = document.querySelector('.container_column');
         containerDosQuizzesDoUsuario.classList.add('hide');
-        const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
         containerDeCriacaoDequizz.classList.remove('hide');
+    } else {
+        containerDosQuizzesDoUsuario.classList.remove('hide');
+        containerDeCriacaoDequizz.classList.add('hide');
     }
     const userQuizzesContainer = document.querySelector('.your.quizzes');
     userQuizzesContainer.innerHTML = '';
