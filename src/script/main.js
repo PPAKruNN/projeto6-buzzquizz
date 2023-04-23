@@ -278,6 +278,8 @@ function excluirQuizz(){
     promiseDelete.then(respostaDelecao => {
         console.log(respostaDelecao);
         const divPopUp = idpopUp.parentNode;
+        document.getElementById('page_1').classList.add('hide');
+        document.getElementById('page_reloading').classList.remove('hide');
         divPopUp.classList.add('hide');
         buscarQuizzes();
         buscarQuizzesDoUsuario();
