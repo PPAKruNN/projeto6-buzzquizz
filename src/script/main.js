@@ -533,8 +533,8 @@ function send() {
 
             //o id atual será usado como parametro na função da gisele
             saveQuizzInLocalstorage(sucess.data.id, sucess.data.key);
-            //a função para mostrar os quizzes do usuario esta sendo chamada aqui também após criar o quizz
-            buscarQuizzesDoUsuario();
+            //a função para mostrar os quizzes esta sendo chamada aqui também após criar o quizz
+            buscarQuizzes();
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `

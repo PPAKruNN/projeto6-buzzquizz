@@ -209,7 +209,7 @@ body {
     padding: 20px;
     border-radius: 5px; 
     text-align: center;
-    margin-top: 30%;
+    margin-top: 20%;
 }
 .confirmacao-de-exclusão p{
     font-size: 20px;
@@ -536,7 +536,7 @@ body {
     color: #EC362D;
 }
 .loading_margin {
-    margin-top: 25%;
+    margin-top: 20%;
 }
 /*---------------------------------------*/
 .hide {
