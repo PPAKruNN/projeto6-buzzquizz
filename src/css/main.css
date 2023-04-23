@@ -187,6 +187,54 @@ body {
     line-height: 22px;
     color: #FFFFFF;
 }
+.pop-up{
+    z-index: 5;
+    height: 3848px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5) 65.1%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.confirmacao-de-exclusão{
+    background-color: #BABABA;
+    z-index: 5;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    padding: 20px;
+    border-radius: 5px; 
+    text-align: center;
+    margin-top: 7%;
+}
+.confirmacao-de-exclusão p{
+    font-family: 'Roboto';
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 23px;
+}
+.confirmar-exclusao{
+    border: none;
+    background-color: white;
+    font-family: 'Roboto';
+    color: #FF4B4B;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 3px 15px 3px 15px;
+}
+.cancelar-exclusao{
+    border: none;
+    background-color: transparent;
+    font-family: 'Roboto';
+    color: #484848;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 3px 15px 3px 15px;
+}
 /*---------------------------------------*/
 .quizz_header {
     z-index: 1;

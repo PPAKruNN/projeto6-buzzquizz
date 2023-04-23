@@ -252,7 +252,12 @@ function shuffleArray(array) {
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let listaDeQuizzesDoUsuario = [];
 let listaDeQuizzesfiltradasParaOUsuario = '';
-function excluirQuizz(idDoQuizzQueVaiSerExcluido){
+function excluirQuizz(){
+    const idpopUp = document.querySelector('.pop-up .id-do-quizz');
+    const idDoQuizzQueVaiSerExcluido = idpopUp.innerHTML;
+    console.log(idpopUp);
+    console.log(idpopUp.innerHTML);
+    const divPopUp = idpopUp.parentNode;
     const objQuizzSelecionado = listaDeQuizzesDoUsuario.filter(quizz =>{
         if (quizz.id == idDoQuizzQueVaiSerExcluido){
             return true;
@@ -263,10 +268,25 @@ function excluirQuizz(idDoQuizzQueVaiSerExcluido){
     const promiseDelete = axios.delete(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`, {headers: {'Secret-Key': `${objQuizzSelecionado[0].key}`}});
     promiseDelete.then(respostaDelecao => {
         console.log(respostaDelecao);
+        const divPopUp = idpopUp.parentNode;
+        divPopUp.classList.add('hide');
+        buscarQuizzes();
+        buscarQuizzesDoUsuario();
     })
     promiseDelete.catch(erroDelecao => {
         console.log(erroDelecao);
     })
+}
+function cancelarexclusao(){
+    window.location.reload();
+}
+function confirmarEnxclusao(idDoQuizz){
+    const popUp = document.querySelector('.pop-up');
+    popUp.innerHTML += `<div class="id-do-quizz hide">${idDoQuizz}</div>`;
+    popUp.classList.remove('hide');
+    console.log(popUp);
+    console.log(popUp.innerHTML);
+    console.log(idDoQuizz);
 }
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
@@ -292,7 +312,7 @@ function saveQuizzInLocalstorage(idQuizz, keyQuizz){//Essa função roda apenas 
     localStorage.setItem("ids", listaDeQuizzesDoUsuarioSerializada);
 }
 
-//saveQuizzInLocalstorage(282, 'aaaaaaa');
+//saveQuizzInLocalstorage(318, "9e04034e-6728-469f-9d1f-f6d7e7a0e53c");
 //localStorage.removeItem("ids");
 
 function quizzesDoUsuario(quizz){
@@ -342,7 +362,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
                 <div class="ativacao-do-quizz-lateral" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
                 <div class="edit-and-delet-quizz">
                         <ion-icon class="icones" name="create-outline"></ion-icon>
-                        <ion-icon onclick = "excluirQuizz(${listaDeQuizzesfiltradasParaOUsuario[i].id})" class="icones" name="trash-outline"></ion-icon>
+                        <ion-icon onclick = "confirmarEnxclusao(${listaDeQuizzesfiltradasParaOUsuario[i].id})" class="icones" name="trash-outline"></ion-icon>
                 </div>
                 <p class="text_quizz">${listaDeQuizzesfiltradasParaOUsuario[i].title}</p>  
             </div>`

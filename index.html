@@ -18,10 +18,16 @@
 <body>
 
     <header class="top_bar">BuzzQuizz</header>
-
+    <!--layout de janela de confirmação de exclusão-->
+    <div class="pop-up hide">    
+        <div class="confirmacao-de-exclusão">
+            <p>Esse comando excluirá seu quizz permanentemente. Tem certeza que deseja continuar?</p>
+            <button class="confirmar-exclusao" onclick="excluirQuizz()">Sim</button>
+            <button class="cancelar-exclusao" onclick="cancelarexclusao()">Cancelar</button>
+        </div>
+    </div>
     <!--layout TELA 1 (fica SEM a classe hide por padrão)-->
     <div id="page_1" class="full_page">
-
         <!--layout caso: nenhum quizz local(fica SEM a classe hide por padrão)-->
         <div class="create_quizz hide">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
@@ -37,8 +43,6 @@
                 
             </div>
         </div>
-        <!--layout de janela de confirmação de exclusão-->
-
         <!---->
         <div class="container_column">
             <p class="text_all_quizzes">Todos os Quizzes</p>
@@ -130,7 +134,7 @@
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
         <button class="botão-page-3 pointer" onclick="MY_play_quizz()" >Acessar Quizz</button>
-        <button class="botão-voltar-page-3 pointer" onclick="home_after_create()" >Voltar para home</button>
+        <button class="botão-voltar-page-3 pointer" onclick="home_after_create()" onclick="buscarQuizzesDoUsuario()">Voltar para home</button>
     </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
