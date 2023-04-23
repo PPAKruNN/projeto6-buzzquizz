@@ -4,6 +4,8 @@ const endpoints =
 {
     "quizzes": 'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes',
 }
+
+window.scrollTo(0, 0);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //PEDRO-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +54,8 @@ function voltarParaHome()
     eraseQuiz();
 
     buscarQuizzes();
+
+    window.scrollTo(0, 0);
 }
 
 function getQuizInfo(quizz_id)
@@ -103,8 +107,8 @@ function renderQuizQuestion(questionData, INTERN_ID) {
         if(answer.isCorrectAnswer) correctAnswer = answer.text;
         
         options_tags += `
-        <div class="options" onclick="selectOption(this)">
-            <img src="${answer.image}"/>
+        <div class="options pointer_options" onclick="selectOption(this)">
+            <img class ="pointer_options_img" src="${answer.image}"/>
             <p class="text_options">${answer.text}</p>
         </div>
         `
@@ -281,6 +285,10 @@ function excluirQuizz(){
         divPopUp.classList.add('hide');
         divPopUp.classList.replace(`${idDoQuizzQueVaiSerExcluido}`, 'id');
         window.location.reload();
+        buscarQuizzes();
+        buscarQuizzesDoUsuario();
+
+        window.scrollTo(0, 0);
     })
     promiseDelete.catch(erroDelecao => {
         console.log(erroDelecao);
@@ -431,6 +439,8 @@ function home_after_create() {
     document.getElementById('page_3.4').classList.add('hide');
 
     buscarQuizzes();
+
+    window.scrollTo(0, 0);
 }
 //----------------------------------------------------------
 let answer_counter = 0; //para contar se tem alguma pergunta não criada

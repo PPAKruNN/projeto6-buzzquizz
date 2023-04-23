@@ -66,12 +66,16 @@ body {
     background-color: #FAFAFA;
     border: 1px dashed #EC362D;
     border-radius: 50px;
-
     font-style: normal;
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
     color: #EC362D;
+}
+.button_create_quizz:hover {
+    background-color:#EC362D;
+    color: #FAFAFA;
+    transition: 0.3s;
 }
 /*---------------------------------------*/
 .container_column {
@@ -545,4 +549,15 @@ body {
 .pointer {
     cursor: pointer;
 }
+.pointer_options:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 15px;
+    transition: 0.3s;
+}
+.pointer_options_img:hover {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
 /*---------------------------------------*/
