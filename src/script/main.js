@@ -463,7 +463,7 @@ function toggle_answer(clicked) {
     clicked.classList.remove('container-edits','pointer');
 
     clicked.innerHTML = `
-        <div id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
+        <div data-test="question-ctn"id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
             <p>${clicked.innerText}</p>
             <input data-test="question-input" class="inputs-page-3" type="text" placeholder="Texto da pergunta">
             <input data-test="question-color-input" class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
