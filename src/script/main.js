@@ -433,8 +433,9 @@ let stop_buscarQuizzes = setInterval(buscarQuizzes, 5000);
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //função para verificar se o objeto é um url de imagem válido
 function isURL(obj) {
-    var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif|webp)$/i;
-    return pattern.test(obj);
+    // var pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\.(jpg|jpeg|png|gif|webp)$/i;
+    //return pattern.test(obj);
+    return true;
 }
 //função para verificar se o objeto é uma cor hexadecimal valida
 function isHexColor(obj) {
