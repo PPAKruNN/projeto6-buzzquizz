@@ -399,7 +399,7 @@ function renderizarQuizzes(listaDeQuizzes){
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
         quizzesContainer.innerHTML += `
-        <div data-test="my-quiz" class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz(this.dataset.id)">
+        <div data-test="others-quiz" class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz(this.dataset.id)">
             <div class="quizz-transparency"></div>
             <img class="quizz-img"src="${listaDeQuizzesGeral[i].image}"/>
             <p class="text_quizz">${listaDeQuizzesGeral[i].title}</p>  
@@ -685,9 +685,9 @@ function send_3_1() {
         for (let i = 0; i < P-1; i++) {
     
             answer.innerHTML += `
-                <div data-test="question-ctn" onclick="toggle_answer(this)" class="container-edits pointer">
+                <div data-test="question-ctn" class="container-edits pointer">
                     <p>Pergunta ${i+2}</p>
-                    <ion-icon data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
+                    <ion-icon data-test="toggle" onclick="toggle_answer(this)" class="icone-edit" name="create-outline"></ion-icon>
                 </div>
             `;
             
