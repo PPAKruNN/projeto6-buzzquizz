@@ -107,19 +107,19 @@ function renderQuizQuestion(questionData, INTERN_ID) {
         if(answer.isCorrectAnswer) correctAnswer = answer.text;
         
         options_tags += `
-        <div class="options pointer_options" onclick="selectOption(this)">
-            <img class ="pointer_options_img" src="${answer.image}"/>
-            <p class="text_options">${answer.text}</p>
+        <div data-test="answer" class="options pointer_options" onclick="selectOption(this)">
+            <img class="pointer_options_img" src="${answer.image}"/>
+            <p data-test="answer-text" class="text_options">${answer.text}</p>
         </div>
         `
     });
 
     document.querySelector(".questions-container").innerHTML += `
-    <div class="question_box" data-id="${INTERN_ID}">
+    <div data-test="question" class="question_box" data-id="${INTERN_ID}">
         <div class="content_question_box">
             
             <div class="question" style="background-color: ${questionData.color}">
-                <p class="text_question">${questionData.title}</p>
+                <p data-test="question-title" class="text_question">${questionData.title}</p>
             </div>
     
             <div class="images_box">
@@ -181,13 +181,13 @@ function finishQuiz()
                 <div class="content_question_box">
                     
                     <div class="question result_question">
-                        <p class="text_question">${rightPercentage}% de acerto: ${level.title}</p>
+                        <p data-test="level-title"class="text_question">${rightPercentage}% de acerto: ${level.title}</p>
                     </div>
             
                     <div class="quizzResult">
-                        <img src="${level.image}">
+                        <img data-test="level-img" src="${level.image}">
 
-                        <p class="text-quiz-result">${level.text}</p>
+                        <p data-test="level-text" class="text-quiz-result">${level.text}</p>
                     </div>
                 </div>
             </div>
@@ -378,7 +378,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
     userQuizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesfiltradasParaOUsuario.length; i++){
         userQuizzesContainer.innerHTML += `
-            <div class="container-quizz pointer">
+            <div data-test="my-quiz" class="container-quizz pointer">
                 <div class="quizz-transparency"></div>
                 <img class="quizz-img"src="${listaDeQuizzesfiltradasParaOUsuario[i].image}"/>
                 <div class="ativacao-do-quizz" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
@@ -399,7 +399,7 @@ function renderizarQuizzes(listaDeQuizzes){
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
         quizzesContainer.innerHTML += `
-        <div class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz(this.dataset.id)">
+        <div data-test="my-quiz" class="container-quizz pointer" data-id = "${listaDeQuizzesGeral[i].id}" onclick="play_quizz(this.dataset.id)">
             <div class="quizz-transparency"></div>
             <img class="quizz-img"src="${listaDeQuizzesGeral[i].image}"/>
             <p class="text_quizz">${listaDeQuizzesGeral[i].title}</p>  
@@ -465,18 +465,18 @@ function toggle_answer(clicked) {
     clicked.innerHTML = `
         <div id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
             <p>${clicked.innerText}</p>
-            <input class="inputs-page-3" type="text" placeholder="Texto da pergunta">
-            <input class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
+            <input data-test="question-input" class="inputs-page-3" type="text" placeholder="Texto da pergunta">
+            <input data-test="question-color-input" class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
             <p>Resposta correta</p>
-            <input class="inputs-page-3" type="text" placeholder="Resposta correta">
-            <input class="inputs-page-3" type="text" placeholder="URL da imagem">
+            <input data-test="correct-answer-input" class="inputs-page-3" type="text" placeholder="Resposta correta">
+            <input data-test="correct-img-input" class="inputs-page-3" type="text" placeholder="URL da imagem">
             <p>Respostas incorretas</p>
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 1">
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 2">
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 3">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 1">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 2">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 3">
         </div>
     `;
 }
@@ -492,12 +492,12 @@ function toggle_level(clicked) {
     clicked.classList.remove('container-edits', 'pointer');
     
     clicked.innerHTML = `
-        <div id ="${clicked.innerText.replace(/(\s|í|v|e|l)/g, "")}" class="container-inputs">
+        <div data-test="level-ctn" id ="${clicked.innerText.replace(/(\s|í|v|e|l)/g, "")}" class="container-inputs">
             <p>${clicked.innerText}</p>
-            <input class="inputs-page-3" type="text" placeholder="Título do nível">
-            <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
-            <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
-            <textarea class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
+            <input data-test="level-input" class="inputs-page-3" type="text" placeholder="Título do nível">
+            <input data-test="level-percent-input" class="inputs-page-3" type="text" placeholder="% de acerto mínima">
+            <input data-test="level-img-input" class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
+            <textarea data-test="level-description-input" class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
         </div>
     `;
 }
@@ -569,7 +569,7 @@ function send() {
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
-                <div class="your-container-quizz pointer" onclick="play_quizz(runtime_data.currentQuizId)">
+                <div data-test="sucess-banner" class="your-container-quizz pointer" onclick="play_quizz(runtime_data.currentQuizId)">
                     <div class="your-quizz-transparency"></div>
                     <img class="your-quizz-img"src="${U}"/>
                     <p class="your-text_quizz">${T}</p>  
@@ -684,7 +684,7 @@ function send_3_1() {
         for (let i = 0; i < P-1; i++) {
     
             answer.innerHTML += `
-                <div onclick="toggle_answer(this)" class="container-edits pointer">
+                <div data-test="toggle" onclick="toggle_answer(this)" class="container-edits pointer">
                     <p>Pergunta ${i+2}</p>
                     <ion-icon class="icone-edit" name="create-outline"></ion-icon>
                 </div>
@@ -839,9 +839,9 @@ function send_3_2() {
         for (let i = 0; i < N-1; i++) {
             
             level.innerHTML += `
-                <div onclick="toggle_level(this)" class="container-edits pointer">
+                <div data-test="level-ctn" class="container-edits pointer">
                     <p>Nível ${i+2}</p>
-                    <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+                    <ion-icon onclick="toggle_level(this)" data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
                 </div>
             `;
         }

@@ -32,13 +32,13 @@
         <!--layout caso: nenhum quizz local(fica SEM a classe hide por padrão)-->
         <div class="create_quizz hide">
             <p class="text_none_quizz">Você não criou nenhum<br>quizz ainda :(</p>
-            <button onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
+            <button data-test="create-btn" onclick="create_quizz()" class="button_create_quizz pointer">Criar Quizz</button>
         </div>
         <!--layout caso: quizz locais criados(fica COM a classe hide por padrão)-->
         <div class="container_column">
             <div class ="row">
                 <p class="text_all_quizzes">Seus Quizzes</p>
-                <ion-icon onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
+                <ion-icon data-test="my-quiz" onclick="create_quizz()" class="plus_quizz pointer" name="add-circle"></ion-icon>
             </div>
             <div class="your quizzes">
                 
@@ -56,7 +56,7 @@
     <!--layout TELA 2 (fica COM a classe hide por padrão)-->
     <div id="page_2" class="full_page hide">
 
-        <header class="quizz_header">
+        <header data-test="banner" class="quizz_header">
             <!--SERÁ RENDERIZADO PELO JS-->
             <p class="quizz_title">Quizz title!! :D</p>
         </header>
@@ -65,61 +65,61 @@
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
 
-        <button class="restart pointer" onclick="redefineQuizz()">Reiniciar Quizz</button>
-        <button class="home pointer" onclick="voltarParaHome()">Voltar para home</button>
+        <button data-test="restart" class="restart pointer" onclick="redefineQuizz()">Reiniciar Quizz</button>
+        <button data-test="go-home" class="home pointer" onclick="voltarParaHome()">Voltar para home</button>
     </div>
     <!--layout TELA 3.1 (fica COM a classe hide por padrão)-->
     <div id="page_3.1" class="full_page hide">
         <p class="titulo-page-3">Comece pelo começo</p>
         <div class="container-inputs">
-            <input class="inputs-page-3" type="text" placeholder="Título do seu quizz">
-            <input class="inputs-page-3" type="text" placeholder="URL da imagem do seu quizz">
-            <input class="inputs-page-3" type="text" placeholder="Quantidade de perguntas do quizz">
-            <input class="inputs-page-3" type="text" placeholder="Quantidade de níveis do quizz">
+            <input data-test="title-input" class="inputs-page-3" type="text" placeholder="Título do seu quizz">
+            <input data-test="img-input" class="inputs-page-3" type="text" placeholder="URL da imagem do seu quizz">
+            <input data-test="questions-amount-input" class="inputs-page-3" type="text" placeholder="Quantidade de perguntas do quizz">
+            <input data-test="levels-amount-input"class="inputs-page-3" type="text" placeholder="Quantidade de níveis do quizz">
         </div>
-        <button disabled class="botão-page-3">Prosseguir pra criar perguntas</button>
+        <button data-test="go-create-questions"disabled class="botão-page-3">Prosseguir pra criar perguntas</button>
     </div>
     <!--layout TELA 3.2 (fica COM a classe hide por padrão)-->
     <div id="page_3.2" class="full_page hide">
         <p class="titulo-page-3">Crie suas perguntas</p>
         <div id ="P1" class="container-inputs">
             <p>Pergunta 1</p>
-            <input class="inputs-page-3" type="text" placeholder="Texto da pergunta">
-            <input class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
+            <input data-test="question-input" class="inputs-page-3" type="text" placeholder="Texto da pergunta">
+            <input data-test="question-color-input" class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
             <p>Resposta correta</p>
-            <input class="inputs-page-3" type="text" placeholder="Resposta correta">
-            <input class="inputs-page-3" type="text" placeholder="URL da imagem">
+            <input data-test="correct-answer-input" class="inputs-page-3" type="text" placeholder="Resposta correta">
+            <input data-test="correct-img-input" class="inputs-page-3" type="text" placeholder="URL da imagem">
             <p>Respostas incorretas</p>
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 1">
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 2">
-            <input class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
-            <input class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 3">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 1">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 1">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 2">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 2">
+            <input data-test="wrong-answer-input" class="inputs-page-3" type="text" placeholder="Resposta incorreta 3">
+            <input data-test="wrong-img-input" class="inputs-page-3 input_margin" type="text" placeholder="URL da imagem 3">
         </div>
         <div id ="answers">
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
-        <button disabled class="botão-page-3">Prosseguir pra criar níveis</button>
+        <button data-test="go-create-levels" disabled class="botão-page-3">Prosseguir pra criar níveis</button>
     </div>
     <!--layout TELA 3.3 (fica COM a classe hide por padrão)-->
     <div id="page_3.3" class="full_page hide">
         <p class="titulo-page-3">Agora, decida os níveis</p>
-        <div id ="N1" class="container-inputs">
+        <div data-test="level-ctn" id ="N1" class="container-inputs">
             <p>Nível 1</p>
-            <input class="inputs-page-3" type="text" placeholder="Título do nível">
-            <input class="inputs-page-3" type="text" placeholder="% de acerto mínima">
-            <input class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
-            <textarea class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
+            <input data-test="level-input" class="inputs-page-3" type="text" placeholder="Título do nível">
+            <input data-test="level-percent-input" class="inputs-page-3" type="text" placeholder="% de acerto mínima">
+            <input data-test="level-img-input" class="inputs-page-3" type="text" placeholder="URL da imagem do nível">
+            <textarea data-test="level-description-input" class="inputs-page-3 simulate_text_area" placeholder="Descrição do nível"></textarea>
         </div>
         <div id="levels">
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
-        <button disabled class="botão-page-3">Finalizar Quizz</button>
+        <button data-test="finish" disabled class="botão-page-3">Finalizar Quizz</button>
     </div>
     <!--layout loading (fica SEM a classe hide por padrão)-->    
     <div id="page_reloading" class="full_page loading_margin">
-        <img class="loading" src="./src/img/loading.gif"/>
+        <img data-test="spinner" class="loading" src="./src/img/loading.gif"/>
         <p class="text_loading">Carregando...</p>
     </div>
     <!--layout TELA 3.4 (fica COM a classe hide por padrão)-->
@@ -128,8 +128,8 @@
         <div class="quizz-finalizado">
             <!--SERÁ RENDERIZADO PELO JS-->
         </div>
-        <button class="botão-page-3 pointer" onclick="MY_play_quizz()" >Acessar Quizz</button>
-        <button class="botão-voltar-page-3 pointer" onclick="home_after_create(); buscarQuizzes()">Voltar para home</button>
+        <button data-test="go-quiz" class="botão-page-3 pointer" onclick="MY_play_quizz()" >Acessar Quizz</button>
+        <button data-test="go-home" class="botão-voltar-page-3 pointer" onclick="home_after_create(); buscarQuizzes()">Voltar para home</button>
     </div>
     <!-------------------------------------------------------------------------------------------------->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
