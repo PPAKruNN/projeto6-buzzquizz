@@ -385,7 +385,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
                 <div class="ativacao-do-quizz" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
                 <div class="ativacao-do-quizz-lateral" data-id = "${listaDeQuizzesfiltradasParaOUsuario[i].id}" onclick="play_quizz(this.dataset.id)"></div>
                 <div class="edit-and-delet-quizz">
-                        <ion-icon class="icones" name="create-outline"></ion-icon>
+                        <ion-icon onclick="alert('Função não implementada! ;D')"class="icones" name="create-outline"></ion-icon>
                         <ion-icon onclick = "confirmarEnxclusao(${listaDeQuizzesfiltradasParaOUsuario[i].id})" class="icones" name="trash-outline"></ion-icon>
                 </div>
                 <p class="text_quizz">${listaDeQuizzesfiltradasParaOUsuario[i].title}</p>  
