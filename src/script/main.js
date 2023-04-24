@@ -141,7 +141,7 @@ function eraseQuiz() {
 
 function redefineQuizz() {
     play_quizz(runtime_data.currentQuizId);
-    document.querySelector(".quizz_header").scrollIntoView();
+    window.scrollTo(0, 0);
 }
 
 //---------------------------------------------------------------------------------------------
