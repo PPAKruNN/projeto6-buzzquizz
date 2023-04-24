@@ -463,7 +463,7 @@ function toggle_answer(clicked) {
     clicked.classList.remove('container-edits','pointer');
 
     clicked.innerHTML = `
-        <div data-test="question-ctn"id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
+        <div id ="${clicked.innerText.replace(/(\s|e|r|g|u|n|t|a)/g, "")}" class="container-inputs"> 
             <p>${clicked.innerText}</p>
             <input data-test="question-input" class="inputs-page-3" type="text" placeholder="Texto da pergunta">
             <input data-test="question-color-input" class="inputs-page-3" type="text" placeholder="Cor de fundo da pergunta">
@@ -684,9 +684,9 @@ function send_3_1() {
         for (let i = 0; i < P-1; i++) {
     
             answer.innerHTML += `
-                <div data-test="toggle" onclick="toggle_answer(this)" class="container-edits pointer">
+                <div data-test="question-ctn" onclick="toggle_answer(this)" class="container-edits pointer">
                     <p>Pergunta ${i+2}</p>
-                    <ion-icon class="icone-edit" name="create-outline"></ion-icon>
+                    <ion-icon data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
                 </div>
             `;
             
