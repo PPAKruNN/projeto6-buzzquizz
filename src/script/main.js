@@ -180,7 +180,7 @@ function finishQuiz()
             <div class="question_box RESULT_BOX" ">
                 <div class="content_question_box">
                     
-                    <div class="question">
+                    <div class="question result_question">
                         <p class="text_question">${rightPercentage}% de acerto: ${level.title}</p>
                     </div>
             
