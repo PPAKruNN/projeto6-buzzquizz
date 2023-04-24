@@ -362,6 +362,7 @@ body {
     color: #484848;
     width: 328px;
     height: 250px;
+    word-break: break-word;
     overflow-y: scroll;
 }
 
