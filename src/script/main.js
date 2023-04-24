@@ -493,7 +493,7 @@ function toggle_level(clicked) {
     clicked.classList.remove('container-edits', 'pointer');
     
     clicked.innerHTML = `
-        <div data-test="level-ctn" id ="${clicked.innerText.replace(/(\s|í|v|e|l)/g, "")}" class="container-inputs">
+        <div id ="${clicked.innerText.replace(/(\s|í|v|e|l)/g, "")}" class="container-inputs">
             <p>${clicked.innerText}</p>
             <input data-test="level-input" class="inputs-page-3" type="text" placeholder="Título do nível">
             <input data-test="level-percent-input" class="inputs-page-3" type="text" placeholder="% de acerto mínima">
