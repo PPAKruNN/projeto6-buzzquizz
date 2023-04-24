@@ -685,9 +685,9 @@ function send_3_1() {
         for (let i = 0; i < P-1; i++) {
     
             answer.innerHTML += `
-                <div data-test="question-ctn" class="container-edits pointer">
+                <div data-test="question-ctn" onclick="toggle_answer(this)" class="container-edits pointer">
                     <p>Pergunta ${i+2}</p>
-                    <ion-icon data-test="toggle" onclick="toggle_answer(this)" class="icone-edit" name="create-outline"></ion-icon>
+                    <ion-icon data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
                 </div>
             `;
             
@@ -840,9 +840,9 @@ function send_3_2() {
         for (let i = 0; i < N-1; i++) {
             
             level.innerHTML += `
-                <div data-test="level-ctn" class="container-edits pointer">
+                <div onclick="toggle_level(this)"data-test="level-ctn" class="container-edits pointer">
                     <p>Nível ${i+2}</p>
-                    <ion-icon onclick="toggle_level(this)" data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
+                    <ion-icon data-test="toggle" class="icone-edit" name="create-outline"></ion-icon>
                 </div>
             `;
         }
