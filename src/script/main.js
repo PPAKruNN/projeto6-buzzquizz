@@ -115,7 +115,7 @@ function renderQuizQuestion(questionData, INTERN_ID) {
     });
 
     document.querySelector(".questions-container").innerHTML += `
-    <div data-test="question" class="question_box" data-id="${INTERN_ID}">
+    <div data-test="question" class="question_box" data-idd="${INTERN_ID}">
         <div class="content_question_box">
             
             <div class="question" style="background-color: ${questionData.color}">
@@ -148,7 +148,7 @@ function redefineQuizz() {
 
 function selectOption(el) {
     const questionbox = el.parentElement.parentElement.parentElement;
-    let questionId =  questionbox.dataset.id
+    let questionId =  questionbox.dataset.idd
     let selectedText = el.innerText;
 
     let isCorrectAnswer = selectedText == runtime_data.currentQuizAnswers[questionId];
@@ -220,7 +220,7 @@ function evaluateQuestion(isCorrect, questionId) {
 
 function questionVisualEmphasis(selectedOptionText, questionId)
 {
-    questionOptions = document.querySelectorAll(`[data-id="${questionId}"] .options`);
+    questionOptions = document.querySelectorAll(`[data-idd="${questionId}"] .options`);
 
     questionOptions.forEach( (option) => {
         if(option.innerText == runtime_data.currentQuizAnswers[questionId])
