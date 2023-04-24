@@ -517,7 +517,7 @@ let ARR_3_1, ARR_3_2, T, U, N, P, ARR_3_3, counterSEND;
 /*a cada sub página da página 3.1 o conteudo da variavel element vai mudar, assim alterando qual botão 
 será liberado com base nos inputs de cada página, usando a função enable e ENABLE_button*/
 let element;
-let error_3_2, error_3_3; //não há na da pagina 3.1 porque a quantidade de inputs é fixa, foi facil de implementar a verficação
+// let error_3_2, error_3_3; //não há na da pagina 3.1 porque a quantidade de inputs é fixa, foi facil de implementar a verficação
 let stop_3_1, stop_3_3; //não há stop_3_2 pq na pagina 3.2 da pra continuar sem preencher tudo, então ná há setInterval nela
 //------------------------------------------------------------------------------------------------------------------------------
 function MY_play_quizz() {
@@ -710,7 +710,7 @@ function send_3_1() {
 function send_3_2() {
 
     //não há setInterval para a página 3.2
-
+    let error_3_2 = false;
     let TEMP_array = [];
 
     ARR_3_2 = {obj_perguntas: []};
@@ -816,7 +816,7 @@ function send_3_2() {
         }
     }
     //------------
-    if (error_3_2 !== true) {
+    if (error_3_2 === false) {
 
         //reseta o contador da função toggle_answer(clicked)
         answer_counter = 0;
@@ -853,14 +853,13 @@ function send_3_2() {
         alert('Texto da pergunta: no mínimo 20 caracteres.\n\nCor de fundo: deve ser uma cor em hexadecimal.\n\nTextos da resposta certa: não pode estar vazio.\n\nURL das imagens de resposta: deve ter formato de URL e extensão de imagem.\n\nNão dá pra inserir somente a imagem OU o nome nas respostas, precisa ser os dois');
 
     }
-
-    error_3_2 = undefined;
 }
 //----------------------------------------------------------
 function send_3_3 () {
 
     clearInterval(stop_3_3);
 
+    let error_3_3 = false;
     ARR_3_3 = {obj_niveis: []};
     let TEMP_array = [];
 
@@ -903,10 +902,6 @@ function send_3_3 () {
 
             error_3_3 = true;
 
-        } else {
-
-            error_3_3 = false
-    
         }
     }
     //------------  
@@ -932,8 +927,6 @@ function send_3_3 () {
         alert('Título do nível: mínimo de 10 caracteres.\n\nURL da imagem do nível: deve ter formato de URL e extensão de imagem.\n\nDescrição do nível: mínimo de 30 caracteres.\n\nÉ obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%, e o valor precisa ser de 0 a 100.\n\n');
 
     }
-
-    error_3_3 = undefined;
 }
 
 
