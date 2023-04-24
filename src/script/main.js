@@ -225,15 +225,18 @@ function questionVisualEmphasis(selectedOptionText, questionId)
     questionOptions.forEach( (option) => {
         if(option.innerText == runtime_data.currentQuizAnswers[questionId])
         {
-            option.children[1].classList.add("correctAnswer")
+            option.children[1].classList.add("correctAnswer");
         } else {
-            option.children[1].classList.add("wrongAnswer")
+            option.children[1].classList.add("wrongAnswer");
         }
 
         if( !(selectedOptionText == option.innerText) )
         {
-            option.classList.add("reduceOptionOpacity")
+            option.classList.add("reduceOptionOpacity");
         }
+
+        option.classList.remove('pointer_options');
+        option.children[0].classList.remove('pointer_options_img');
 
         // remove on click
         option.onclick = "";
@@ -266,16 +269,18 @@ function shuffleArray(array) {
 let listaDeQuizzesDoUsuario = [];
 let listaDeQuizzesfiltradasParaOUsuario = '';
 function excluirQuizz(){
-    const idpopUp = document.querySelector('.pop-up');
-    const listaDeClasses = idpopUp.classList;
-    const idDoQuizzQueVaiSerExcluido = listaDeClasses[1];
+    const idpopUp = document.querySelector('.pop-up .id-do-quizz');
+    const idDoQuizzQueVaiSerExcluido = idpopUp.innerHTML;
+    console.log(idpopUp);
+    console.log(idpopUp.innerHTML);
+    const divPopUp = idpopUp.parentNode;
     const objQuizzSelecionado = listaDeQuizzesDoUsuario.filter(quizz =>{
         if (quizz.id == idDoQuizzQueVaiSerExcluido){
-            return true; 
+            return true;
         }
     })
-    console.log(objQuizzSelecionado);
-    
+    console.log(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`);
+    console.log(`{headers: {'Secret-Key': ${objQuizzSelecionado[0].key}}}`)
     const promiseDelete = axios.delete(`https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${objQuizzSelecionado[0].id}`, {headers: {'Secret-Key': `${objQuizzSelecionado[0].key}`}});
     promiseDelete.then(respostaDelecao => {
         console.log(respostaDelecao);
@@ -283,8 +288,6 @@ function excluirQuizz(){
         document.getElementById('page_1').classList.add('hide');
         document.getElementById('page_reloading').classList.remove('hide');
         divPopUp.classList.add('hide');
-        divPopUp.classList.replace(`${idDoQuizzQueVaiSerExcluido}`, 'id');
-        window.location.reload();
         buscarQuizzes();
         buscarQuizzesDoUsuario();
 
@@ -292,7 +295,6 @@ function excluirQuizz(){
     })
     promiseDelete.catch(erroDelecao => {
         console.log(erroDelecao);
-        console.log('DEu merda na hora de excluir!');
     })
 }
 function cancelarexclusao(){
@@ -300,8 +302,11 @@ function cancelarexclusao(){
 }
 function confirmarEnxclusao(idDoQuizz){
     const popUp = document.querySelector('.pop-up');
-    popUp.classList.replace('id', `${idDoQuizz}`);
+    popUp.innerHTML += `<div class="id-do-quizz hide">${idDoQuizz}</div>`;
     popUp.classList.remove('hide');
+    console.log(popUp);
+    console.log(popUp.innerHTML);
+    console.log(idDoQuizz);
 }
 function buscarQuizzesDoUsuario(){
     let listaDeQuizzesDoUsuarioSalvass = localStorage.getItem("ids");
@@ -309,9 +314,11 @@ function buscarQuizzesDoUsuario(){
     if (listaDeQuizzesDoUsuarioSalvas === null){
         listaDeQuizzesDoUsuario = [];
     }else{
-        listaDeQuizzesDoUsuario = listaDeQuizzesDoUsuarioSalvas;
+        for(i=0; i<listaDeQuizzesDoUsuarioSalvas.length; i++){
+            listaDeQuizzesDoUsuario.push(listaDeQuizzesDoUsuarioSalvas[i]);
+        }
     }
-    //console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
+    console.log(listaDeQuizzesDoUsuario); //Uma array com todos os objetos com os ids
 }
 
 
@@ -359,6 +366,7 @@ const containerDosQuizzesDoUsuario = document.querySelector('.container_column')
 const containerDeCriacaoDequizz = document.querySelector('.create_quizz');
 function renderizarUserQuizzes(listaDeQuizzes){
     listaDeQuizzesfiltradasParaOUsuario = listaDeQuizzes.filter(quizzesDoUsuario);
+    console.log(listaDeQuizzesfiltradasParaOUsuario);
     if(listaDeQuizzesfiltradasParaOUsuario.length === 0){
         containerDosQuizzesDoUsuario.classList.add('hide');
         containerDeCriacaoDequizz.classList.remove('hide');
@@ -386,6 +394,7 @@ function renderizarUserQuizzes(listaDeQuizzes){
 
 function renderizarQuizzes(listaDeQuizzes){
     const listaDeQuizzesGeral = listaDeQuizzes.filter(quizzesQueNaoSaoDoUsuario);
+    console.log(listaDeQuizzesGeral);
     const quizzesContainer = document.querySelector('.all.quizzes');
     quizzesContainer.innerHTML = '';
     for(let i = 0; i < listaDeQuizzesGeral.length; i++){
@@ -404,9 +413,11 @@ function buscarQuizzes(){
         renderizarUserQuizzes(quizzesBuscados.data);
         renderizarQuizzes(quizzesBuscados.data);
         console.log(quizzesBuscados.data);
-        buscarQuizzesDoUsuario();
-        document.getElementById('page_reloading').classList.add('hide');
-        document.getElementById('page_1').classList.remove('hide');
+
+        if (counterSEND !== 3.4) {
+            document.getElementById('page_reloading').classList.add('hide');
+            document.getElementById('page_1').classList.remove('hide');
+        }
 
     });
     promiseQuizzes.catch(erroNaBuscaDosQuizzes => {
@@ -435,10 +446,8 @@ function home_after_create() {
 
     setInterval(buscarQuizzes, 5000);
 
-    document.getElementById('page_reloading').classList.remove('hide');
+    document.getElementById('page_1').classList.remove('hide');
     document.getElementById('page_3.4').classList.add('hide');
-
-    buscarQuizzes();
 
     window.scrollTo(0, 0);
 }
@@ -547,14 +556,16 @@ function send() {
         });
         await_promise.then( sucess => {
 
-            document.getElementById('page_reloading').classList.add('hide');
-            document.getElementById('page_3.4').classList.remove('hide');
-
             //salvei o id do quizz criado e visualizado na variavel do pedro, para ser usada na função play_quizz do botão da tela 3.4
             runtime_data.currentQuizId = sucess.data.id;
 
             //o id atual será usado como parametro na função da gisele
             saveQuizzInLocalstorage(sucess.data.id, sucess.data.key);
+
+            document.getElementById('page_reloading').classList.add('hide');
+            document.getElementById('page_3.4').classList.remove('hide');
+
+            buscarQuizzes();
 
             your_quizz = document.querySelector('.quizz-finalizado');
             your_quizz.innerHTML = `
