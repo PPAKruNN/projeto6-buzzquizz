@@ -898,7 +898,7 @@ function send_3_3 () {
         //-----------
         const some_zero = created_quizz.levels.some( obj => obj.minValue === 0);
 
-        if (some_zero === false || text_N.length < 10 || isNaN(min_N) !== false || min_N < 0 || min_N > 100 || isURL(url_N) === false || desc_N.length < 30) {
+        if (some_zero === false || text_N.length < 10 || isNaN(min_N) !== false || parseInt(ARR_3_3.obj_niveis[0][1]) !== 0 || min_N < 0 || min_N > 100 || isURL(url_N) === false || desc_N.length < 30) {
 
             error_3_3 = true;
 
