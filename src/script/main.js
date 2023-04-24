@@ -743,8 +743,32 @@ function send_3_2() {
         let wrong_P2_img = ARR_3_2.obj_perguntas[i][7];
         let wrong_P3 = ARR_3_2.obj_perguntas[i][8];
         let wrong_P3_img = ARR_3_2.obj_perguntas[i][9];
+
+    //-------------------------------
+
+        if (right_P === "" || text_P.length < 20 || isHexColor(color_P) === false || isURL(right_P_img) === false) { 
+            error_3_2 = true;
+        }
+        //-----
+        if (wrong_P1 === "" && wrong_P2 === "" && wrong_P3 === ""){
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1_img !== "" && isURL(wrong_P1_img) === false) || (wrong_P2_img !== "" && isURL(wrong_P2_img) === false) || (wrong_P3_img !== "" && isURL(wrong_P3_img) === false)) {
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1 === "" && wrong_P1_img !== "") || (wrong_P2 === "" && wrong_P2_img !== "") || (wrong_P3 === "" && wrong_P3_img !== "")) {
+            error_3_2 = true;
+        }
+        //-----
+        if ((wrong_P1_img === "" && wrong_P1 !== "") || (wrong_P2_img === "" && wrong_P2 !== "") || (wrong_P3_img === "" && wrong_P3 !== "")) {
+            error_3_2 = true;
+        }
     //---------------
-        let rP = 
+        if (error_3_2 === false) {
+
+            let rP = 
             {
                 text: right_P,
                 image: right_P_img,
@@ -792,27 +816,6 @@ function send_3_2() {
 
         console.log(TEMP_array);
         TEMP_array = [];
-
-    //-------------------------------
-
-        if (right_P === "" || text_P.length < 20 || isHexColor(color_P) === false || isURL(right_P_img) === false) { 
-            error_3_2 = true;
-        }
-        //-----
-        if (wrong_P1 === "" && wrong_P2 === "" && wrong_P3 === ""){
-            error_3_2 = true;
-        }
-        //-----
-        if ((wrong_P1_img !== "" && isURL(wrong_P1_img) === false) || (wrong_P2_img !== "" && isURL(wrong_P2_img) === false) || (wrong_P3_img !== "" && isURL(wrong_P3_img) === false)) {
-            error_3_2 = true;
-        }
-        //-----
-        if ((wrong_P1 === "" && wrong_P1_img !== "") || (wrong_P2 === "" && wrong_P2_img !== "") || (wrong_P3 === "" && wrong_P3_img !== "")) {
-            error_3_2 = true;
-        }
-        //-----
-        if ((wrong_P1_img === "" && wrong_P1 !== "") || (wrong_P2_img === "" && wrong_P2 !== "") || (wrong_P3_img === "" && wrong_P3 !== "")) {
-            error_3_2 = true;
         }
     }
     //------------
